@@ -7,7 +7,7 @@ function Header({hundleSignIn}) {
   // const location = useLocation()
   return (
     <section className='header'>
-      <img className='header__logo' src={logo} alt='Логотип сайта фильмотека' />
+      <img className='header__logo rotation' src={logo} alt='Логотип сайта фильмотека' />
       <div className='header__container'>
       {/* {location.pathname === '/' && */}
         <a to = '/signup' className='header__registration'>Регистрация</a>
