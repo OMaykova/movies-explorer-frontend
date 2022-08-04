@@ -32,11 +32,8 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  text-align: center;
   letter-spacing: -0.04em;
-  margin: 0;
   margin-right: 10px;
-  vertical-align: center;
 }
 .techs__unit:last-child {
   margin-right: 0;
