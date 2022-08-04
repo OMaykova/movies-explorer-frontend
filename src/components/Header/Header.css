@@ -27,6 +27,8 @@
   cursor: pointer;
 }
 .header__autorization {
+  width: 76px;
+  height: 32px;
   color: #000000;
   font-style: normal;
   font-weight: 500;

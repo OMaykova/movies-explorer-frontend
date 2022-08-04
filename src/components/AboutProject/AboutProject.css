@@ -1,0 +1,49 @@
+.aboutProject__list {
+  display: grid;
+  margin: 70px 0 110px 0;
+  padding: 0;
+  grid-template-columns: 1fr 1fr;
+  list-style-type: none;
+}
+.aboutProject__unit {
+  text-decoration: none;
+}
+.aboutProject__title {
+  margin: 0 0 26px 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+}
+.aboutProject__description {
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+.aboutProject__table {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 36px 36px;
+  align-items: center;
+}
+.table__scale {
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+}
+.table__scale_green {
+  background: #2BE080;
+}
+.table__scale_gray {
+  background-color: #F2F2F2;
+}
+.table__scale_inscription {
+  font-weight: 500;
+  color: #A0A0A0;
+}

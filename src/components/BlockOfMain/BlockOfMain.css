@@ -1,0 +1,13 @@
+.blockOfMain {
+  padding: 110px 70px;
+}
+.blockOfMain__title {
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #000000;
+}

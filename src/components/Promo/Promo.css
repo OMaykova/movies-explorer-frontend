@@ -1,5 +1,5 @@
 .promo {
-  min-height: 574px;
+  /* min-height: 574px; */
   padding: 75px 70px;
   background-color: #465DFF;
   display: flex;
@@ -11,15 +11,16 @@
   justify-content: space-between;
 }
 .promo__title {
+  margin: 0 0 36px 0;
   font-style: normal;
   font-weight: 400;
   font-size: 50px;
   line-height: 58px;
   color: #FFFFFF;
   max-width: 640px;
-  margin-bottom: 36px;
 }
 .promo__description {
+  margin: 0;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
@@ -32,6 +33,7 @@
 .globus {
   width: 310px;
   height: 304px;
+  margin-bottom: 84px;
 }
 .promo__button {
   width: 129px;
