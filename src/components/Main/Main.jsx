@@ -2,6 +2,7 @@ import React from 'react';
 import Promo from '../Promo/Promo';
 import AboutProject from '../AboutProject/AboutProject'
 import Techs from '../Techs/Techs';
+import AboutMe from '../AboutMe/AboutMe';
 import './Main.css';
 
 function Main({handlePromoButton}) {
@@ -10,8 +11,8 @@ function Main({handlePromoButton}) {
       <Promo handlePromoButton={handlePromoButton}/>
       <AboutProject />
       <Techs />
-      {/* <AboutMe />
-      <Portfolio /> */}
+      <AboutMe />
+      {/* <Portfolio /> */}
     </div>
   )
 }
