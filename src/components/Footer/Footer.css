@@ -1,0 +1,40 @@
+.footer {
+  padding: 79px 70px 20px;
+  background-color: #FAFAFA;
+}
+.footer__title {
+  padding: 0 0 20px;
+  margin: 0 0 20px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: #A0A0A0;
+  border-bottom: 1px solid #E8E8E8;
+}
+.footer__container {
+  display: flex;
+  justify-content: space-between;
+}
+.footer__date {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+}
+.footer__links {
+  display: flex;
+  justify-content: flex-end;
+}
+.footer__link {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  margin: 0 0 0 20px;
+}
+.footer__link:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
