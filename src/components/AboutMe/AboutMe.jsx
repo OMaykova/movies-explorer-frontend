@@ -1,6 +1,6 @@
 import React from 'react';
 import BlockOfMain from '../BlockOfMain/BlockOfMain';
-import foto from '../../images/foto.JPG';
+import foto from '../../images/foto2.JPG';
 import './AboutMe.css';
 
 function AboutMe() {
