@@ -1,8 +1,11 @@
 import React from 'react';
 import globus from '../../images/globus.svg';
+import { Route, Link, useRouteMatch } from "react-router-dom";
+import AboutProject from '../AboutProject/AboutProject'
 import './Promo.css';
 
-function Promo({handlePromoButton}) {
+function Promo() {
+  const { path, url } = useRouteMatch();
   return (
     <section className='promo'>
       <div className='promo__container'>
@@ -12,7 +15,12 @@ function Promo({handlePromoButton}) {
         </div>
         <img className='globus' src={globus} alt='Изображение глобуса' />
       </div>
-      <button className='promo__button' type='button' title='Узнать больше' aria-label='Кнопка узнать больше' onClick={handlePromoButton}>Узнать больше</button>
+      <Link to={`${url}/about-project`}>
+        <button className='promo__button' type='button' title='Узнать больше' aria-label='Кнопка узнать больше'>Узнать больше</button>
+      </Link>
+      <Route path={`${path}/about-project`}>
+        <AboutProject />
+      </Route>
     </section>
   )
 }

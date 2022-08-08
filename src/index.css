@@ -1,11 +1,2 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/fonts/fonts.css);
-@import url(./components/App/App.css);
-@import url(./components/Header/Header.css);
-@import url(./components/Promo/Promo.css);
-@import url(./components/BlockOfMain/BlockOfMain.css);
-@import url(./components/AboutProject/AboutProject.css);
-@import url(./components/Techs/Techs.css);
-@import url(./components/AboutMe/AboutMe.css);
-@import url(./components/Portfolio/Portfolio.css);
-@import url(./components//Footer/Footer.css);
