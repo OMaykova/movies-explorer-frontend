@@ -8,10 +8,14 @@ function SearchForm() {
         <input className='search-form__input' placeholder='Фильм' type='text' />
         <button className='search-form__button' type='submit' title='Поиск' aria-label='Кнопка поиска'>Поиск</button>
       </form>
-      <label className='checkbox'>
-        <input className='checkbox__input' type='checkbox' />
-        <span className='checkbox-switch'>Короткометражки</span>
-      </label>
+      <div className='checkbox-container'>
+        <label className='checkbox'>
+          <input className='checkbox__input' type='checkbox' />
+          <span className='checkbox-switch'></span>
+        </label>
+        <p className='checkbox__title'>Короткометражки</p>
+      </div>
+      <div className='checkbox__underline'></div>
     </section>
   )
 }
