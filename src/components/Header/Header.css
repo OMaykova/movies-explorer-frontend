@@ -47,7 +47,9 @@
 .header__autorization:hover {
   opacity: 0.8;
 }
-
+.header__autorization:focus {
+  outline: 2px solid #AAAAAA
+}
 @keyframes rotation {
   0% {
     transform: rotate(0deg);

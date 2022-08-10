@@ -1,5 +1,5 @@
 .search-form {
-  padding: 70px 70px 10px;
+  padding-bottom: 10px;
 }
 .search-form__bar {
   width: 100%;
@@ -36,6 +36,9 @@
   opacity: 0.8;
   cursor: pointer;
 }
+.search-form__button:focus {
+  outline: 2px solid #AAAAAA
+}
 .checkbox {
   display: inline-block;    
   margin-right: 14px;      
@@ -68,7 +71,7 @@
   transition: .15s;
 }
 .checkbox__input:focus + .checkbox-switch::before {
-  border: 1px solid #000000;
+  outline: 1px solid #AAAAAA
 }
 .checkbox__input {
   position: absolute;
