@@ -8,7 +8,8 @@
 }
 .movie__image {
   display: block;
-  height: 203px;
+  width: 364px;
+  min-height: 203px;
   object-fit: cover;
 }
 .movie__caption {
