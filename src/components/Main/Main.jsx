@@ -5,6 +5,7 @@ import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Movies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
 import './Main.css';
 import { Route, Switch } from 'react-router-dom';
 
@@ -22,10 +23,10 @@ function Main({handlePromoButton}) {
         <Route exact path='/movies'>
           <Movies />
         </Route>
-        {/* <Route exact path='/saved-movies'>
+        <Route exact path='/saved-movies'>
           <SavedMovies />
         </Route>
-        <Route exact path='/profile'>
+        {/* <Route exact path='/profile'>
           <Profile />
         </Route> */}
       </Switch>

@@ -9,7 +9,6 @@
 .movie__image {
   display: block;
   width: 364px;
-  min-height: 203px;
   object-fit: cover;
 }
 .movie__caption {
@@ -38,7 +37,7 @@
   text-overflow: ellipsis;
   align-self: center;
 }
-.movie__like {
+.movie__button {
   width: 30px;
   height: 30px;
   border: none;
@@ -46,13 +45,19 @@
   background-color: #FDFDFD;
   padding: 0;
 }
-.movie__like-image {
+.movie__button_hidden {
+  visibility: hidden;
+}
+.movie-template:hover .movie__button_hidden {
+  visibility: visible;
+}
+.movie__button-image {
   margin: auto;
 }
-.movie__like:hover {
+.movie__button:hover {
   cursor: pointer;
 }
-.movie__like:focus {
+.movie__button:focus {
   outline: 0.5px solid #AAAAAA
 }
 .movie__duration {
