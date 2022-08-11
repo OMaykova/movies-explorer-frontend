@@ -32,3 +32,6 @@
 .movies__button-more:focus {
   outline: 0.5px solid #AAAAAA
 }
+.movies-grid_saved-movies {
+  padding-bottom: 167px;
+}

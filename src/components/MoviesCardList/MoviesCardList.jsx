@@ -25,16 +25,18 @@ function MoviesCardList() {
         </>
       }
       {location.pathname === '/saved-movies' &&
-        <div className='movies-grid'>
-          {
-            savedMovies.map(movie => 
-              <Movie 
-                key={movie._id}
-                movie={movie}
-              />
-            )
-          }
-        </div>
+        <>
+          <div className='movies-grid movies-grid_saved-movies'>
+            {
+              savedMovies.map(movie => 
+                <Movie 
+                  key={movie._id}
+                  movie={movie}
+                />
+              )
+            }
+          </div>
+        </>
       }
     </section>
   )
