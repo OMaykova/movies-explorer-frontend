@@ -1,11 +1,9 @@
 import React from 'react';
 import globus from '../../images/globus.svg';
-import { Route, Link, useRouteMatch } from "react-router-dom";
-import AboutProject from '../AboutProject/AboutProject'
+import { HashLink as Link } from 'react-router-hash-link';
 import './Promo.css';
 
 function Promo() {
-  const { path, url } = useRouteMatch();
   return (
     <section className='promo'>
       <div className='promo__container'>
@@ -15,12 +13,9 @@ function Promo() {
         </div>
         <img className='globus' src={globus} alt='Изображение глобуса' />
       </div>
-      <Link to={`${url}/about-project`}>
+      <Link to='#aboutProject' className='promo__button-link'>
         <button className='promo__button' type='button' title='Узнать больше' aria-label='Кнопка узнать больше'>Узнать больше</button>
       </Link>
-      <Route path={`${path}/about-project`}>
-        <AboutProject />
-      </Route>
     </section>
   )
 }

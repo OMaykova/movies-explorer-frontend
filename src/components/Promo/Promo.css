@@ -52,3 +52,13 @@
 .promo__button:hover {
   opacity: 0.8;
 }
+.promo__button-link {
+  width: 129px;
+  height: 36px;
+}
+.promo__button-link:focus {
+  outline: 0.5px solid #AAAAAA;
+}
+.promo__button:focus {
+  outline: 0.5px solid #AAAAAA;
+}

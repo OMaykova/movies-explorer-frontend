@@ -47,7 +47,10 @@
   opacity: 0.8;
 }
 .header__autorization:focus {
-  outline: 2px solid #AAAAAA
+  outline: 2px solid #AAAAAA;
+}
+.header__logo-link:focus {
+  outline: 1px dashed #AAAAAA;
 }
 @keyframes rotation {
   0% {

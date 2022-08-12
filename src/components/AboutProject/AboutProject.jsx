@@ -6,7 +6,9 @@ function AboutProject() {
   return (
     <BlockOfMain
     classSection={'aboutProject'}
-    title={'О проекте'}>
+    title={'О проекте'}
+    id={'aboutProject'}
+    >
       <>
         <ul className='aboutProject__list'>
           <li className='aboutProject__unit'>

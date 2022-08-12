@@ -22,7 +22,9 @@ function Header({hundleSignIn, isLoggedIn }) {
 
   return (
     <header className={headerClassName}>
-      <img className='header__logo rotation' src={logo} alt='Логотип сайта фильмотека' />
+      <Link to = '/' className='header__logo-link'>
+        <img className='header__logo rotation' src={logo} alt='Логотип сайта фильмотека' />
+      </Link>
       {header__container}
     </header>
   )
