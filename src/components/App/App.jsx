@@ -8,6 +8,8 @@ import './App.css';
 
 function App() {
 
+
+
   function handleSignIn() {
     let x=0;
     return x+=1;
@@ -21,9 +23,15 @@ function App() {
       <Switch>
         {/* <ProtectedRoute exact path='/'> */}
         <Route path ='/'>
-          <Header handleSignIn={handleSignIn}/>
+          <Header handleSignIn={handleSignIn} isLoggedIn='true'/>
           <Main handlePromoButton={handlePromoButton}/>
           <Footer />
+        </Route>
+        {/* </ProtectedRoute> */}
+        {/* <ProtectedRoute exact path='/profile'> */}
+        <Route exact path='/profile' isLoggedIn='true'>
+          <Header />
+          {/* <Profile /> */}
         </Route>
         {/* </ProtectedRoute> */}
         {/* <Route exact path='/signup'>

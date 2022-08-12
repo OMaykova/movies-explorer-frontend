@@ -4,9 +4,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #465DFF;
 }
-.header__color {
+.header__landing {
   background-color: #465DFF;
 }
 .header__logo {

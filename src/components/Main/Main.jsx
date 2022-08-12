@@ -26,9 +26,6 @@ function Main({handlePromoButton}) {
         <Route exact path='/saved-movies'>
           <SavedMovies />
         </Route>
-        {/* <Route exact path='/profile'>
-          <Profile />
-        </Route> */}
       </Switch>
     </main>
   )
