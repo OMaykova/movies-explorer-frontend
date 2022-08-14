@@ -5,7 +5,9 @@ import Navigation from '../Navigation/Navigation';
 import './Header.css';
 
 function Header({hundleSignIn, isLoggedIn }) {
+  console.log(isLoggedIn)
   const headerClassName = `header ${isLoggedIn ? '' : 'header_landing'}`;
+  console.log(headerClassName)
   let header__container;
   if (!isLoggedIn) {
     header__container =

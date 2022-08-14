@@ -4,29 +4,16 @@ import AboutProject from '../AboutProject/AboutProject'
 import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
-import Movies from '../Movies/Movies';
-import SavedMovies from '../SavedMovies/SavedMovies';
 import './Main.css';
-import { Route, Switch } from 'react-router-dom';
 
-function Main({handlePromoButton}) {
+function Main() {
   return (
     <main className='main'>
-      <Switch>
-        <Route exact path='/'>
-          <Promo handlePromoButton={handlePromoButton}/>
-          <AboutProject />
-          <Techs />
-          <AboutMe />
-          <Portfolio />
-        </Route>
-        <Route exact path='/movies'>
-          <Movies />
-        </Route>
-        <Route exact path='/saved-movies'>
-          <SavedMovies />
-        </Route>
-      </Switch>
+      <Promo />
+      <AboutProject />
+      <Techs />
+      <AboutMe />
+      <Portfolio />
     </main>
   )
 }
