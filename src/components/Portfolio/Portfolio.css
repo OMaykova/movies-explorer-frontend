@@ -32,6 +32,9 @@
   cursor: pointer;
   opacity: 0.7;
 }
+.portfolio__link:focus {
+  outline: 1px solid #AAAAAA;
+}
 .portfolio__arrow {
   background-image: url(../../images/arrow.svg);
   width: 29px;
@@ -42,4 +45,7 @@
 .portfolio__arrow:hover {
   cursor: pointer;
   opacity: 0.7;
+}
+.portfolio__arrow:focus {
+  outline: 1px solid #AAAAAA;
 }

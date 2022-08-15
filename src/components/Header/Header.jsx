@@ -4,16 +4,16 @@ import { Link } from "react-router-dom";
 import Navigation from '../Navigation/Navigation';
 import './Header.css';
 
-function Header({hundleSignIn, isLoggedIn }) {
-  console.log(isLoggedIn)
+function Header({ isLoggedIn }) {
   const headerClassName = `header ${isLoggedIn ? '' : 'header_landing'}`;
-  console.log(headerClassName)
   let header__container;
   if (!isLoggedIn) {
     header__container =
     <div className='header__container'>
       <Link to = '/signup' className='header__registration'>Регистрация</Link>
-      <button className='header__autorization' onClick={hundleSignIn} title='Войти'>Войти</button>
+      <Link to = '/signin' className='header__autorization-link'>
+        <button className='header__autorization' title='Войти'>Войти</button>
+      </Link>
     </div>
   } else {
     header__container =

@@ -21,10 +21,10 @@ function AboutProject() {
           </li>
         </ul>
         <div className='aboutProject__table'>
-          <p className='table__scale table__scale_green'>1 неделя</p>
-          <p className='table__scale table__scale_gray'>4 недели</p>
-          <p className='table__scale table__scale_inscription'>Back-end</p>
-          <p className='table__scale table__scale_inscription'>Front-end</p>
+          <span className='table__scale-green'><p className='table__scale'>1 неделя</p></span>
+          <span className='table__scale-gray'><p className='table__scale'>4 недели</p></span>
+          <span className='table__scale-inscription'><p className='table__scale'>Back-end</p></span>
+          <span className='table__scale-inscription'><p className='table__scale'>Front-end</p></span>
         </div>
       </>
     </BlockOfMain>

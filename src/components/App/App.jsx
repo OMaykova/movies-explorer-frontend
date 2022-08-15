@@ -12,15 +12,14 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 
 function App() {
-  function handleSignIn() {
-    let x=0;
-    return x+=1;
-  }
+
   return (
     <div className="page">
       <Switch>
         <Route exact path ='/'>
-          <Header handleSignIn={handleSignIn} isLoggedIn='false'/>
+          <Header 
+            isLoggedIn={false}
+          />
           <Main />
           <Footer />
         </Route>
@@ -42,7 +41,7 @@ function App() {
         <Route path='/profile'>
           <Header isLoggedIn='true' />
           <Profile 
-          user={{name: 'Ольга', email: 'olga@ya.ru'}}
+          user={{name: 'Test', email: 'test@ya.ru'}}
           />
         </Route>
         {/* </ProtectedRoute> */}

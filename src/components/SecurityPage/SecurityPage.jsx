@@ -23,7 +23,7 @@ function SecurityPage({title, ...props}) {
         {location.pathname === '/signin' &&
         <>
           <p className='security__already'>Ещё не зарегистрированы?</p>
-          <Link to="/signin" className="security__link">Регистрация</Link>
+          <Link to="/signup" className="security__link">Регистрация</Link>
         </>}
       </div>
     </div>

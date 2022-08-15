@@ -35,15 +35,26 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  text-align: center;
 }
-.table__scale_green {
+.table__scale-green {
   background: #2BE080;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.table__scale_gray {
+.table__scale-gray {
   background-color: #F2F2F2;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.table__scale_inscription {
+.table__scale-inscription {
   font-weight: 500;
   color: #A0A0A0;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

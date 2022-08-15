@@ -28,6 +28,11 @@
   opacity: 0.7;
   cursor: pointer;
 }
+.header__autorization-link {
+  width: 76px;
+  height: 32px;
+  margin-left: 30px; 
+}
 .header__autorization {
   width: 76px;
   height: 32px;
@@ -41,7 +46,6 @@
   border-radius: 3px;
   padding: 8px;
   cursor: pointer;
-  margin-left: 30px;
 }
 .header__autorization:hover {
   opacity: 0.8;
