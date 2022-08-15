@@ -5,6 +5,7 @@ import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
+import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
@@ -44,10 +45,10 @@ function App() {
           />
         </Route>
         {/* </ProtectedRoute> */}
-        {/* <Route exact path='/signup'>
+        <Route exact path='/signup'>
           <Register />
         </Route>
-        <Route exact path='/signin'>
+        {/* <Route exact path='/signin'>
           <Login />
         </Route> */}
         <Route exact path='*'>

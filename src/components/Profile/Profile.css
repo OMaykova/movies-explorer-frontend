@@ -57,8 +57,15 @@
 .profile-input__value::placeholder {
   color: #000000;
 }
+.profile-input__value:-ms-input-placeholder { 
+  color: #000000;
+ }
+ .profile-input__value::-moz-placeholder { 
+  color: #000000;
+  opacity: 1;
+ }
 .form__button {
-  width: 396px;
+  width: 410px;
   height: 45px;
   background: #FF6838;
   border: none;
