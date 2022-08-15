@@ -6,6 +6,7 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
+import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
@@ -48,9 +49,9 @@ function App() {
         <Route exact path='/signup'>
           <Register />
         </Route>
-        {/* <Route exact path='/signin'>
+        <Route exact path='/signin'>
           <Login />
-        </Route> */}
+        </Route>
         <Route exact path='*'>
           <PageNotFound/>
         </Route>
