@@ -2,6 +2,10 @@
   display: flex;
   justify-content: space-between;
 }
+.navigation-links {
+  display: flex;
+  align-items: center;
+}
 .header-nav__link {
   font-style: normal;
   font-weight: 400;
