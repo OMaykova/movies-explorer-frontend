@@ -5,18 +5,18 @@ function Portfolio() {
   return (
     <section className='portfolio'>
       <h3 className='portfolio__title'>Портфолио</h3>
-      <div className='portfolio__container'>
-        <a className='portfolio__link' href='https://omaykova.github.io/how-to-learn/' target='blank'>Статичный сайт</a>
-        <a className='portfolio__arrow' href='https://omaykova.github.io/how-to-learn/' target='blank'></a>
-      </div>
-      <div className='portfolio__container'>
-        <a className='portfolio__link' href='https://omaykova.github.io/russian-travel/' target='blank'>Адаптивный сайт</a>
-        <a className='portfolio__arrow' href='https://omaykova.github.io/russian-travel/' target='blank'></a>
-      </div>
-      <div className='portfolio__container'>
-        <a className='portfolio__link' href='https://omaykova.nomoredomains.xyz' target='blank'>Одностраничное приложение</a>
-        <a className='portfolio__arrow' href='https://omaykova.nomoredomains.xyz' target='blank'></a>
-      </div>
+      <a className='portfolio__container' href='https://omaykova.github.io/how-to-learn/' target='blank'>
+        <p className='portfolio__link'>Статичный сайт</p>
+        <div className='portfolio__arrow'></div>
+      </a>
+      <a className='portfolio__container' href='https://omaykova.github.io/russian-travel/' target='blank'>
+        <p className='portfolio__link'>Адаптивный сайт</p>
+        <div className='portfolio__arrow'></div>
+      </a>
+      <a className='portfolio__container' href='https://omaykova.nomoredomains.xyz' target='blank'>
+        <p className='portfolio__link'>Одностраничное приложение</p>
+        <div className='portfolio__arrow'></div>
+      </a>
     </section>
   )
 }

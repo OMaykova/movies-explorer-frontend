@@ -4,6 +4,7 @@
   padding: 0;
   grid-template-columns: 1fr 1fr;
   list-style-type: none;
+  column-gap: 40px;
 }
 .aboutProject__unit {
   text-decoration: none;
@@ -57,4 +58,37 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+@media screen and (max-width: 768px) {
+  .aboutProject__list {
+    margin-bottom: 93px;
+    column-gap: 30px;
+  }
+  .aboutProject__title {
+    margin: 0 0 22px 0;
+  }
+  .aboutProject__description {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .aboutProject__list {
+    margin: 60px 0;
+    row-gap: 56px;
+    grid-template-columns: 1fr;
+  }
+  .aboutProject__title {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .aboutProject__description {
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .table__scale {
+    font-size: 11px;
+    line-height: 13px;
+  }
 }

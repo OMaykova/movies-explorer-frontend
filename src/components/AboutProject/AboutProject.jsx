@@ -12,11 +12,11 @@ function AboutProject() {
       <>
         <ul className='aboutProject__list'>
           <li className='aboutProject__unit'>
-            <h3 className='aboutProject__title'>Дипломный проект включал 5 этапов</h3>       
+            <p className='aboutProject__title'>Дипломный проект включал 5 этапов</p>       
             <p className='aboutProject__description'>Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.</p>
           </li>
           <li className='aboutProject__unit'>
-            <h3 className='aboutProject__title'>На выполнение диплома ушло 5 недель</h3>
+            <p className='aboutProject__title'>На выполнение диплома ушло 5 недель</p>
             <p className='aboutProject__description'>У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.</p>
           </li>
         </ul>

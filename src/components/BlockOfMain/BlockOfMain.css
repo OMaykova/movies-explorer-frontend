@@ -11,3 +11,18 @@
   padding-bottom: 23px;
   border-bottom: 1px solid #000000;
 }
+@media screen and (max-width: 768px) {
+  .blockOfMain {
+    padding: 90px 50px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .blockOfMain {
+    padding: 70px 18px;
+  }
+  .blockOfMain__title {
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom: 28px;
+  }
+}
