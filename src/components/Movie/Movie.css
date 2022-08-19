@@ -68,3 +68,42 @@
   line-height: 13px;
   color: #A0A0A0;
 }
+@media screen and (max-width: 900px) {
+  .movie-template {
+    width: 339px;
+    min-height: 262px;
+  }
+  .movie__image {
+    width: 339px;
+  }
+  .movie__caption {
+    padding: 8px 14px 14px;
+  }
+  .movie__container {
+    margin-bottom: 7px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .movie-template {
+    width: 300px;
+    min-height: 237px;
+  }
+  .movie__image {
+    width: 300px;
+  }
+  .movie__caption {
+    padding: 7px 20px 14px 24px;
+  }
+  .movie__container {
+    margin-bottom: 6px;
+  }
+  .movie__title {
+    max-width: 240px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .movie__duration {
+    font-size: 10px;
+    line-height: 12px;
+  }
+}

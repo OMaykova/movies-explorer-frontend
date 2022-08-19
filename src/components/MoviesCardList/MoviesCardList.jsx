@@ -14,10 +14,12 @@ function MoviesCardList() {
           <div className='movies-grid'>
             {
               movies.map(movie => 
-                <Movie 
-                  key={movie.id}
-                  movie={movie}
-                />
+                <div className='movies-grid__container'>
+                  <Movie 
+                    key={movie.id}
+                    movie={movie}
+                  />
+                </div>
               )
             }
           </div>
@@ -29,10 +31,12 @@ function MoviesCardList() {
           <div className='movies-grid movies-grid_saved-movies'>
             {
               savedMovies.map(movie => 
-                <Movie 
-                  key={movie._id}
-                  movie={movie}
-                />
+                <div className='movies-grid__container'>
+                  <Movie 
+                    key={movie._id}
+                    movie={movie}
+                  />
+                </div>
               )
             }
           </div>

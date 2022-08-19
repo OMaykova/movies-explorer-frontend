@@ -48,3 +48,22 @@
   font-size: 14px;
   line-height: 17px;
 }
+@media screen and (max-width: 768px) {
+  .form {
+    min-height: 380px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .form {
+    width: 260px;
+    min-height: calc(100vh - 253px - 45px - 14px);
+  }
+  .form-input__value {
+    width: 260px;
+  }
+  .form__button {
+    width: 260px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

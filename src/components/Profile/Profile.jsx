@@ -32,7 +32,7 @@ function Profile({user}) {
         <div className='form__button-container'>
           <div className='form__button-confirm-container' style={displayFormButton}>
             <span className='form__error'></span>
-            <button className='form__button'>Сохранить</button>
+            <button className='form__button-profile'>Сохранить</button>
           </div>
           <div className={displayEditButtonClassName}>
             <button className='profile__edit-button' type='button' title='Редактировать' onClick={handleEditButtonProfile}>Редактировать</button>
