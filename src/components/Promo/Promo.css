@@ -1,0 +1,118 @@
+.promo {
+  padding: 75px 70px;
+  background-color: #465DFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.promo__container {
+  display: flex;
+  justify-content: space-between;
+}
+.promo__title {
+  margin: 0 0 36px 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  color: #FFFFFF;
+  max-width: 640px;
+}
+.promo__description {
+  margin: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #FFFFFF;
+  opacity: 0.5;
+  max-width: 310px;
+}
+.globus {
+  width: 310px;
+  height: 304px;
+  margin-bottom: 84px;
+}
+.promo__button {
+  width: 129px;
+  height: 36px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, .6);
+  border-radius: 3px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #FFFFFF;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.promo__button:hover {
+  opacity: 0.8;
+}
+.promo__button-link {
+  width: 129px;
+  height: 36px;
+}
+.promo__button-link:focus {
+  outline: 0.5px solid #AAAAAA;
+}
+.promo__button:focus {
+  outline: 0.5px solid #AAAAAA;
+}
+@media screen and (max-width: 768px) {
+  .promo {
+    padding: 140px 50px 76px;
+    align-items: center;
+    min-height: calc(100vh - 74px - 140px - 56px);
+  }
+  .promo__container {
+    justify-content: start;
+    flex-flow: column;
+    align-items: center;
+  }
+  .globus {
+    order: 0;
+    margin-bottom: 48px;
+  }
+  .promo__caption {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .promo__title {
+    margin: 0 0 22px 0;
+    font-size: 40px;
+    line-height: 50px;
+    max-width: 680px;
+    text-align: center;
+  }
+  .promo__description {
+    margin: 0;
+    max-width: 260px;
+    text-align: center;
+  }
+}
+@media screen and (max-width: 500px) {
+  .promo {
+    padding: 70px 10px 30px;
+    min-height: calc(100vh - 74px - 70px - 30px);
+  }
+  .globus {
+    order: 0;
+    width: 210px;
+    height: 206px;
+    margin-bottom: 44px;
+  }
+  .promo__title {
+    margin: 0 0 24px 0;
+    font-size: 30px;
+    line-height: 38px;
+    max-width: 300px;
+    letter-spacing: -0.04em;
+  }
+
+}
