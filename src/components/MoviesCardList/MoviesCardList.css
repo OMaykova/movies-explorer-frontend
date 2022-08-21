@@ -7,6 +7,8 @@
   column-gap: 24px;
   row-gap: 37px;
   margin: 0 auto;
+  list-style-type: none;
+  padding: 0;
 }
 .movies__button-more {
   display: block;

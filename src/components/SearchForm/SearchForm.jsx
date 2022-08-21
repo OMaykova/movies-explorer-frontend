@@ -5,7 +5,7 @@ function SearchForm() {
   return (
     <section className='search-form'>
       <form className='search-form__bar' noValidate>
-        <input className='search-form__input' placeholder='Фильм' type='text' />
+        <input className='search-form__input' placeholder='Фильм' type='text' required/>
         <button className='search-form__button' type='submit' title='Поиск' aria-label='Кнопка поиска'>Поиск</button>
       </form>
       <div className='checkbox-container'>
