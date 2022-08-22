@@ -48,6 +48,13 @@
   font-size: 14px;
   line-height: 17px;
 }
+.form__button:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+.form__button:focus {
+  border-bottom: 1px solid #FF6838;
+}
 @media screen and (max-width: 768px) {
   .form {
     min-height: 380px;

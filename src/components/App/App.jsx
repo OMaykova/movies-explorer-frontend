@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -10,9 +10,19 @@ import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
+import {movieApi} from '../../utils/movieApi'
 
 function App() {
+  const [movies, setMovies] = useState([])
 
+  useEffect(() => {
+    movieApi.getMovies()
+    .then((res) => {
+      setMovies(res)
+    // .catch(() => console.log())
+    })
+  }, [])
+//  console.log(movies)
   return (
     <div className="page">
       <Switch>
@@ -26,7 +36,7 @@ function App() {
         {/* <ProtectedRoute exact path='/movies'> */}
         <Route path='/movies'>
           <Header isLoggedIn='true'/>
-          <Movies />
+          <Movies movies={movies}/>
           <Footer />
         </Route>
         {/* </ProtectedRoute> */}

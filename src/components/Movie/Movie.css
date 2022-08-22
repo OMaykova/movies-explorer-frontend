@@ -8,10 +8,12 @@
 }
 .movie__image {
   display: block;
-  width: 364px;
+  max-width: 100%;
+  height: 203px;
   object-fit: cover;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
+  object-position: top;
 }
 .movie__caption {
   margin: 0;

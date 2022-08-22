@@ -1,11 +1,11 @@
 import React from "react";
 import Movie from '../Movie/Movie';
 import './MoviesCardList.css';
-import movies from '../../utils/movies';
+// import movies from '../../utils/movies';
 import savedMovies from '../../utils/savedMovies';
 import { useLocation } from "react-router-dom";
 
-function MoviesCardList() {
+function MoviesCardList({movies}) {
   const location = useLocation()
   return(
     <section className='movies-card-list'>
