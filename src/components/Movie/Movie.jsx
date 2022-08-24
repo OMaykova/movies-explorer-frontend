@@ -1,16 +1,12 @@
-import React, {useState} from "react";
+import React from "react";
 import './Movie.css'
 import like from '../../images/like.svg';
 import deleted from '../../images/delete.svg';
 import { useLocation } from "react-router-dom";
+import { getTimeFromMins } from "../../utils/utils";
 
 function Movie({movie}) {
   const location = useLocation();
-  function getTimeFromMins(mins, movie) {
-    let hours = Math.trunc(mins/60);
-    let minutes = mins % 60;
-    return hours + 'ч ' + minutes + 'м';
-  };
 
   return(
     <figure className='movie-template'>

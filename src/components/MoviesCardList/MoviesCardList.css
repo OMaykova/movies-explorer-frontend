@@ -1,5 +1,9 @@
 .movies-card-list {
+  display: block;
   padding-top: 70px;
+}
+.movies-card-list_hidden {
+  display: none;
 }
 .movies-grid {
   display: grid;
