@@ -1,13 +1,12 @@
 import React, {useState} from "react";
 import Movie from '../Movie/Movie';
 import './MoviesCardList.css';
-import savedMovies from '../../utils/savedMovies';
 import { useLocation } from "react-router-dom";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { useEffect } from "react";
 
 
-function MoviesCardList({movies, isLoading, nothingFound, searchError}) {
+function MoviesCardList({movies, savedMovies, isLoading, nothingFound, searchError, onMovieLike, onMovieDelete, isLiked}) {
   const location = useLocation()
   const classNameMoviesList = isLoading || nothingFound || searchError ? 'movies-card-list movies-card-list_hidden' : 'movies-card-list';
   const screenWidth = useWindowDimensions();
@@ -25,7 +24,6 @@ function MoviesCardList({movies, isLoading, nothingFound, searchError}) {
 
   useEffect(() => {
     if (location.pathname === '/movies') {
-      console.log(screenWidth.width)
     if (screenWidth.width > 1024) {
       setCounter({total:12, more: 3})
     } else if (screenWidth.width < 1024 && screenWidth.width > 480) {
@@ -33,7 +31,6 @@ function MoviesCardList({movies, isLoading, nothingFound, searchError}) {
     } else if (screenWidth.width < 480) {
       setCounter({total:5, more: 2})
     }
-    console.log(counter)
     }
   }, [location.pathname, screenWidth])
 
@@ -65,14 +62,16 @@ function MoviesCardList({movies, isLoading, nothingFound, searchError}) {
         :
         <section className={classNameMoviesList}>
           {location.pathname === '/movies' &&
-            <>
+            <React.Fragment>
               <ul className='movies-grid'>
                 {
                   showMovie.map(movie => 
-                    <li className='movies-grid__container'>
+                    <li className='movies-grid__container' key={movie.id}>
                       <Movie 
                         key={movie.id}
                         movie={movie}
+                        onMovieLike={onMovieLike}
+                        isLiked={isLiked}
                       />
                     </li>
                   )
@@ -83,23 +82,25 @@ function MoviesCardList({movies, isLoading, nothingFound, searchError}) {
                 :
                 ''
               }
-            </>
+            </React.Fragment>
           }
           {location.pathname === '/saved-movies' &&
-            <>
+            <React.Fragment>
               <ul className='movies-grid movies-grid_saved-movies'>
                 {
                   savedMovies.map(movie => 
-                    <li className='movies-grid__container'>
+                    <li className='movies-grid__container' key={movie._id}>
                       <Movie 
                         key={movie._id}
                         movie={movie}
+                        onMovieDelete={onMovieDelete}
+                        isLiked={isLiked}
                       />
                     </li>
                   )
                 }
               </ul>
-            </>
+            </React.Fragment>
           }
         </section>
     }

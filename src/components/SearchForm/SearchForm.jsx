@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './SearchForm.css';
 import {useLocation} from 'react-router-dom'
 
-function SearchForm({handlSearchMovie, setSearchError}) {
+function SearchForm({handlSearchMovie, setSearchError, handleSearchSavedMovies}) {
   const location = useLocation();
   const [isEmpty, setIsEmpty] = useState(false);
   const [searchValue, setSearchValue] = useState(location.pathname === '/movies' && localStorage.getItem('searchValue') ? localStorage.getItem('searchValue') : '');
@@ -49,7 +49,7 @@ function SearchForm({handlSearchMovie, setSearchError}) {
         setIsEmpty(true);
       } else {
         setIsEmpty(false);
-        handlSearchMovie();
+        handleSearchSavedMovies();
       }
     }
    }

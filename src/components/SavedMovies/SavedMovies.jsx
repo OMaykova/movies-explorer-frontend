@@ -4,12 +4,24 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import './SavedMovies.css';
 
-function SavedMovies({savedMovies}) {
+function SavedMovies({savedMovies, isLoading, nothingFound, handleSearchSavedMovies, searchError, setSearchError, onMovieDelete, isLiked}) {
   return(
     <section className='movies'>
-      <SearchForm />
-      <MoviesCardList />
-      {/* <Preloader /> */}
+      <SearchForm 
+        handleSearchSavedMovies={handleSearchSavedMovies}
+        setSearchError={setSearchError}      
+      />
+      <MoviesCardList 
+        nothingFound={nothingFound}
+        savedMovies={savedMovies}
+        isLoading={isLoading}
+        searchError={searchError}
+        onMovieDelete={onMovieDelete}
+        isLiked={isLiked}
+      />
+      <Preloader 
+        isLoading={isLoading}
+      />
     </section>
   )
 }
