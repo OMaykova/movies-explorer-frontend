@@ -2,7 +2,7 @@ import React from 'react';
 import SecurityPage from '../SecurityPage/SecurityPage';
 import Form from '../Form/Form';
 
-function Login() {
+function Login({handleReqest}) {
   return (
     <SecurityPage
       title={'Рады видеть!'}
@@ -10,6 +10,7 @@ function Login() {
       <Form 
         formName={'login'}
 				buttonTitle={'Войти'}
+        handleReqest={handleReqest}
         />
     </SecurityPage>
   )

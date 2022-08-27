@@ -8,16 +8,19 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import './App.css';
 import {movieApi} from '../../utils/movieApi'
 import { isCyrillic } from '../../utils/utils';
 import { mainApi } from '../../utils/mainApi';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
+import ProtectedRoute from '../ProtectedRoute';
+import * as auth from '../../utils/auth'
 
 function App() {
 
-  const location = useLocation()
+  const location = useLocation();
+  const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [nothingFound, setNothingFound] = useState(false);
   const [searchError, setSearchError] = useState(false);
@@ -26,7 +29,8 @@ function App() {
     email: '',
   });
   const [savedMoviesOfSearch, setSavedMoviesOfSearch] = useState ([])
-  
+  const [isLiked, setIsLiked] = useState(false);
+
   useEffect(() => {
     mainApi.getUserInfo()
     .then((res) => {
@@ -126,11 +130,9 @@ function App() {
       .finally(() => setIsLoading(false));
   }
   // =================================================
-
-
-  const [isLiked, setIsLiked] = useState(false);
-
-  function handleCardLike(movie) {
+  // БЛОК РАБОТЫ С ФИЛЬМОМ
+  // =================================================
+   function handleCardLike(movie) {
     if (location.pathname === '/movies') {
       setIsLiked(JSON.parse(localStorage.getItem('likedMovies')).includes(movie._id))
     }
@@ -175,8 +177,49 @@ function App() {
       })
       .catch((err) => console.log(err))
   }
+// =================================================
+// БЛОК АУТЕНТИФИКАЦИИ И АВТОРИЗАЦИИ
+// =================================================
+  function handleRegister({name, password, email}) {
+    return auth.register(name, password, email)
+    .then((res) => {
+      console.log('Регистрация успешна, res: ', res)
+    //   if(res) {
+    //     setTooltipStatus('success')
+    //     setTimeout(() => {history.push('/signin')}, 3000);
+    //     } else {
+    //       setTooltipStatus('fail')}
+    //   setTimeout(() => {closeAllPopups()}, 3000)
+    // })
+    .catch(err => {
+      console.log(err)
+    });
+    })
+  }
+  function handleLogin({password, email}) {
+    return auth.authorize(password, email)
+    .then((data) => {
+      console.log('Вы успешно авторизовались, res: ', data)
+      // if (data) {
+      //   setLoggedIn(true);
+      //   setEmail(email);
+      // } else {
+      //   setTooltipStatus('fail')
+      // }
+    })
+    .catch(err => {
+      console.log(err)
+    });
+  }
+  function handleSignOut() {
+    auth.signout()
+      .then(console.log('Куки удален!'))
+    // setLoggedIn(false);
+    // setEmail(null);
+    history.push('/signup');
+  }
 
-
+// =================================================
   return (
     <CurrentUserContext.Provider value ={currentUser}>
       <div className="page">
@@ -188,7 +231,7 @@ function App() {
             <Main />
             <Footer />
           </Route>
-          {/* <ProtectedRoute exact path='/movies'> */}
+          <ProtectedRoute exact path='/movies'>
           <Route path='/movies'>
             <Header isLoggedIn='true'/>
             <Movies 
@@ -205,8 +248,8 @@ function App() {
             />
             <Footer />
           </Route>
-          {/* </ProtectedRoute> */}
-          {/* <ProtectedRoute exact path='/saved-movies'> */}
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/saved-movies'>
           <Route path='/saved-movies'>
             <Header isLoggedIn='true'/>
             <SavedMovies 
@@ -223,20 +266,24 @@ function App() {
             />
             <Footer />
           </Route>
-          {/* </ProtectedRoute> */}
-          {/* <ProtectedRoute exact path='/profile'> */}
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/profile'>
           <Route path='/profile'>
             <Header isLoggedIn='true' />
             <Profile 
             user={{name: 'Test', email: 'test@ya.ru'}}
             />
           </Route>
-          {/* </ProtectedRoute> */}
+          </ProtectedRoute>
           <Route exact path='/signup'>
-            <Register />
+            <Register 
+              handleReqest={handleRegister}
+            />
           </Route>
           <Route exact path='/signin'>
-            <Login />
+            <Login 
+              handleReqest={handleLogin}
+            />
           </Route>
           <Route exact path='*'>
             <PageNotFound/>

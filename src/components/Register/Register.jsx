@@ -3,7 +3,7 @@ import Form from '../Form/Form';
 import SecurityPage from '../SecurityPage/SecurityPage';
 import './Register.css';
 
-function Register() {
+function Register({handleReqest}) {
   return (
     <SecurityPage
       title={'Добро пожаловать!'}
@@ -11,6 +11,7 @@ function Register() {
       <Form 
         formName={'register'}
         buttonTitle={'Зарегистрироваться'}
+        handleReqest={handleReqest}
         />
     </SecurityPage>
   )
