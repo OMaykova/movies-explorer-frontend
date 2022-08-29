@@ -28,7 +28,7 @@ function Form({formName, buttonTitle, handleReqest}) {
       if (!formValues.email || !formValues.password) {
         return;
       }
-      handleReqest({password: formValues.password, email: formValues.email })
+      handleReqest({email: formValues.email, password: formValues.password})
         .catch((err) => {
           console.log(err)
         });

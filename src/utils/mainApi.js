@@ -44,7 +44,6 @@ class MainApi {
     })
     .then(this._getResponseData)
 	}
-
 	getUserInfo() {
 		return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
@@ -52,6 +51,19 @@ class MainApi {
     })
     .then(this._getResponseData)
 	}
+  editProfile(name, email) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        email: email,
+      })
+    })
+    .then(this._getResponseData)
+  }
+
 }
 
 export const mainApi = new MainApi({

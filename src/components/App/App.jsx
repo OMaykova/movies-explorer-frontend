@@ -30,23 +30,13 @@ function App() {
   });
   const [savedMoviesOfSearch, setSavedMoviesOfSearch] = useState ([])
   const [isLiked, setIsLiked] = useState(false);
-
-  useEffect(() => {
-    mainApi.getUserInfo()
-    .then((res) => {
-      setCurrentUser({
-        name: res.name,
-        email: res.email,
-        _id: res._id
-      })
-    })
-    .catch((err) => console.log(err))
-  })
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     setSavedMoviesOfSearch(JSON.parse(localStorage.getItem('savedMoviesOfSearch')) ?
       JSON.parse(localStorage.getItem('savedMoviesOfSearch')) : [])
   }, [])
+
 
 // БЛОК ФУНКЦИЙ ПОИСКА ФОРМ
 // =================================================
@@ -183,42 +173,77 @@ function App() {
   function handleRegister({name, password, email}) {
     return auth.register(name, password, email)
     .then((res) => {
-      console.log('Регистрация успешна, res: ', res)
-    //   if(res) {
-    //     setTooltipStatus('success')
-    //     setTimeout(() => {history.push('/signin')}, 3000);
-    //     } else {
-    //       setTooltipStatus('fail')}
-    //   setTimeout(() => {closeAllPopups()}, 3000)
-    // })
-    .catch(err => {
+      if(res) {
+        setTimeout(() => {history.push('/signin')}, 2000);
+        console.log('Регистрация успешна, res: ', res)
+        } 
+    })
+    .catch((err) => {
       console.log(err)
     });
-    })
   }
-  function handleLogin({password, email}) {
-    return auth.authorize(password, email)
+
+  function handleLogin({email, password}) {
+    return auth.authorize(email, password)
     .then((data) => {
       console.log('Вы успешно авторизовались, res: ', data)
-      // if (data) {
-      //   setLoggedIn(true);
-      //   setEmail(email);
-      // } else {
-      //   setTooltipStatus('fail')
-      // }
+      if (data) {
+        setIsLoggedIn(true);
+      } 
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err)
     });
   }
   function handleSignOut() {
     auth.signout()
       .then(console.log('Куки удален!'))
-    // setLoggedIn(false);
-    // setEmail(null);
-    history.push('/signup');
+      setIsLoggedIn(false);
+      history.push('/signup');
   }
 
+  function changeProfileData({name, email}) {
+    mainApi.editProfile(name, email)
+    .then((res) => {
+      setCurrentUser(res)
+    })
+    .catch(console.log)
+  }
+
+  const checkAuth = () => {
+    auth.getContent()
+      .then((data) => {
+        if (data) {
+          setCurrentUser({
+            name: data.name,
+            email: data.email,
+            _id: data._id
+          })
+          setIsLoggedIn(true);
+        }
+      })
+      .catch((err) => {
+        console.log(`Пользователь не авторизован ${err}`);
+      });
+  };
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      history.push("/movies");
+      mainApi.getUserInfo()
+        .then((res) => {
+          setCurrentUser({
+            name: res.name,
+            email: res.email,
+            _id: res._id
+          })
+        })
+        .catch((err) => console.log(err))}
+  }, [isLoggedIn])
 // =================================================
   return (
     <CurrentUserContext.Provider value ={currentUser}>
@@ -226,14 +251,14 @@ function App() {
         <Switch>
           <Route exact path ='/'>
             <Header 
-              isLoggedIn={false}
+              isLoggedIn={isLoggedIn}
             />
             <Main />
             <Footer />
           </Route>
-          <ProtectedRoute exact path='/movies'>
           <Route path='/movies'>
-            <Header isLoggedIn='true'/>
+            <ProtectedRoute exact path='/movies' isLoggedIn={isLoggedIn}>
+            <Header isLoggedIn={isLoggedIn}/>
             <Movies 
               movies={JSON.parse(localStorage.getItem('moviesOfSearch')) ?
                 JSON.parse(localStorage.getItem('moviesOfSearch')) : []}
@@ -247,11 +272,11 @@ function App() {
               isLiked={isLiked}
             />
             <Footer />
+            </ProtectedRoute>
           </Route>
-          </ProtectedRoute>
-          <ProtectedRoute exact path='/saved-movies'>
           <Route path='/saved-movies'>
-            <Header isLoggedIn='true'/>
+          <ProtectedRoute exact path='/saved-movies' isLoggedIn={isLoggedIn}>
+            <Header isLoggedIn={isLoggedIn}/>
             <SavedMovies 
               savedMovies={JSON.parse(localStorage.getItem('savedMovies')) ?
                 JSON.parse(localStorage.getItem('savedMovies')) : []}
@@ -265,16 +290,18 @@ function App() {
               isLiked={isLiked}
             />
             <Footer />
+            </ProtectedRoute>
           </Route>
-          </ProtectedRoute>
-          <ProtectedRoute exact path='/profile'>
           <Route path='/profile'>
-            <Header isLoggedIn='true' />
+            <ProtectedRoute exact path='/profile' isLoggedIn={isLoggedIn}>
+            <Header isLoggedIn={isLoggedIn} />
             <Profile 
-            user={{name: 'Test', email: 'test@ya.ru'}}
+              user={{name: currentUser.name, email: currentUser.email}}
+              handleSignOut={handleSignOut}
+              handleReqest={changeProfileData}
             />
+            </ProtectedRoute>
           </Route>
-          </ProtectedRoute>
           <Route exact path='/signup'>
             <Register 
               handleReqest={handleRegister}

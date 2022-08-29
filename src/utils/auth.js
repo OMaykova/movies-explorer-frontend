@@ -28,7 +28,7 @@ export const register = (name, password, email) => {
   })
   .then(checkResponse)
 };
-export const authorize = (password, email) => {
+export const authorize = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     credentials: 'include',
@@ -36,9 +36,9 @@ export const authorize = (password, email) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-			"password": password,
-      "email": email
-		})
+			"email": email,
+			"password": password
+  	})
   })
   .then(checkResponse)
 };
@@ -51,4 +51,14 @@ export const signout = () => {
       "Content-Type": "application/json",
     },
   }).then(checkResponse);
+};
+export const getContent = () => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+  .then(checkResponse)
 };
