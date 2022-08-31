@@ -28,15 +28,20 @@ function App() {
     name: '',
     email: '',
   });
-  const [savedMoviesOfSearch, setSavedMoviesOfSearch] = useState ([])
   const [isLiked, setIsLiked] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [message, setMessage] = useState('');
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [saveMoviesOfSearch, setSaveMoviesOfSearch] = useState([]);
+  const [stateSavedMovies, setStateSavedMovies] =useState(JSON.parse(localStorage.getItem('savedMovies')) ?
+  JSON.parse(localStorage.getItem('savedMovies')) : []);
 
   useEffect(() => {
-    setSavedMoviesOfSearch(JSON.parse(localStorage.getItem('savedMoviesOfSearch')) ?
-      JSON.parse(localStorage.getItem('savedMoviesOfSearch')) : [])
-  }, [])
-
+    setStateSavedMovies(JSON.parse(localStorage.getItem('savedMovies')) ?
+      JSON.parse(localStorage.getItem('savedMovies')) : [])
+    setMessage('');
+    console.log('useEffect')
+  }, [location])
 
 // БЛОК ФУНКЦИЙ ПОИСКА ФОРМ
 // =================================================
@@ -45,10 +50,11 @@ function App() {
     setIsLoading(true);
     mainApi.getSavedMovies()
       .then((res) => {
+        setStateSavedMovies(res)
         localStorage.setItem('savedMovies', JSON.stringify(res))
         const likedMovies = [];
         res.forEach((movie) => {
-          likedMovies.push(movie._id)
+          likedMovies.push(movie.movieId)
         })
         localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
       })
@@ -108,6 +114,7 @@ function App() {
             movie
         )
         localStorage.setItem('savedMoviesOfSearch', JSON.stringify(resultOfSearch))
+        setStateSavedMovies(resultOfSearch)
         if (resultOfSearch.length === 0) {
           setNothingFound(true);
         } else {
@@ -124,7 +131,7 @@ function App() {
   // =================================================
    function handleCardLike(movie) {
     if (location.pathname === '/movies') {
-      setIsLiked(JSON.parse(localStorage.getItem('likedMovies')).includes(movie._id))
+      setIsLiked(JSON.parse(localStorage.getItem('likedMovies')).includes(movie.id))
     }
     if (!isLiked) {
       mainApi.addSavedMovies({
@@ -133,37 +140,53 @@ function App() {
         duration: movie.duration,
         year: movie.year,
         description: movie.description,
-        image: `https://api.nomoreparties.co/${movie.image.url}`,
+        image: `https://api.nomoreparties.co${movie.image.url}`,
         trailerLink: movie.trailerLink,
         nameRU: movie.nameRU,
         nameEN: (movie.nameEN ? movie.nameEN : 'Empty'),
-        thumbnail: `https://api.nomoreparties.co/${movie.image.formats.thumbnail.url}`,
-        _id: movie.id,
+        thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+        movieId: movie.id,
       })
       .then((movie) => {
         const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
         savedMovies.push(movie);
         localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
         const likedMovies = JSON.parse(localStorage.getItem('likedMovies'));
-        likedMovies.push(movie._id);
+        likedMovies.push(movie.movieId);
         localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
         setIsLiked(true);
       })
       .catch((err) => console.log(err))
     } else {
-      handleDeleteSavedMovie(movie._id)
+      // const movieWillDislike = JSON.parse(localStorage.getItem('savedMovies')).filter((m) => m.movieId === movie.id)
+      handleDeleteCardLike(movie)
       setIsLiked(false);        
     }
   }
-
+  function handleDeleteCardLike(movie) {
+    JSON.parse(localStorage.getItem('savedMovies')).forEach((m) => {
+      if (m.movieId === movie.id) {
+        mainApi.removeSavedMovies(m._id)
+        .then(() => {
+          const likedMovies = JSON.parse(localStorage.getItem('likedMovies')).filter((id) => id !== m.movieId);
+          localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
+          const savedMovies = JSON.parse(localStorage.getItem('savedMovies')).filter((s) => s._id !== m._id)
+          localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+          setStateSavedMovies(savedMovies)
+        })
+        .catch((err) => console.log(err))
+      }
+    })
+  }
   function handleDeleteSavedMovie(movie) {
     mainApi.removeSavedMovies(movie._id)
       .then(() => {
-        const savedMoviesOfSearch = JSON.parse(localStorage.getItem('savedMoviesOfSearch')).filter((m) => m._id !== movie._id)
-        localStorage.setItem('savedMoviesOfSearch', JSON.stringify(savedMoviesOfSearch))
-        setSavedMoviesOfSearch(savedMoviesOfSearch);
-        const likedMovies = JSON.parse(localStorage.getItem('likedMovies')).filter((m) => m._id !== movie._id);
+        const likedMovies = JSON.parse(localStorage.getItem('likedMovies')).filter((id) => id !== movie.movieId);
         localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
+        const savedMovies = JSON.parse(localStorage.getItem('savedMovies')).filter((s) => s._id !== movie._id)
+        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+        setStateSavedMovies(savedMovies)
+          
       })
       .catch((err) => console.log(err))
   }
@@ -174,25 +197,33 @@ function App() {
     return auth.register(name, password, email)
     .then((res) => {
       if(res) {
+        setMessage('Регистрация прошла успешно')
         setTimeout(() => {history.push('/signin')}, 2000);
-        console.log('Регистрация успешна, res: ', res)
         } 
     })
     .catch((err) => {
-      console.log(err)
+      if (err.includes(409)) {
+        setMessage("Пользователь с таким email уже существует");
+      } else {
+        setMessage("При регистрации пользователя произошла ошибка");
+      }
     });
   }
 
   function handleLogin({email, password}) {
     return auth.authorize(email, password)
     .then((data) => {
-      console.log('Вы успешно авторизовались, res: ', data)
       if (data) {
+        setMessage('Вы успешно авторизовались')
         setIsLoggedIn(true);
       } 
     })
     .catch((err) => {
-      console.log(err)
+      if (err.includes(401)) {
+        setMessage("Неверный логин или пароль");
+      } else {
+        setMessage("При равторизации произошла ошибка");
+      }
     });
   }
   function handleSignOut() {
@@ -205,9 +236,16 @@ function App() {
   function changeProfileData({name, email}) {
     mainApi.editProfile(name, email)
     .then((res) => {
+      setMessage('')
       setCurrentUser(res)
     })
-    .catch(console.log)
+    .catch((err) => {
+      if (err.includes(409)) {
+        setMessage("Пользователь с таким email уже существует");
+      } else {
+        setMessage("При обновлении профиля произошла ошибка");
+      }
+    })
   }
 
   const checkAuth = () => {
@@ -278,14 +316,12 @@ function App() {
           <ProtectedRoute exact path='/saved-movies' isLoggedIn={isLoggedIn}>
             <Header isLoggedIn={isLoggedIn}/>
             <SavedMovies 
-              savedMovies={JSON.parse(localStorage.getItem('savedMovies')) ?
-                JSON.parse(localStorage.getItem('savedMovies')) : []}
+              savedMovies={stateSavedMovies}
               isLoading={isLoading}
               nothingFound={nothingFound}
               handleSearchSavedMovies={handleSearchSavedMovies}
               searchError={searchError}
               setSearchError={setSearchError}
-              onMovieLike={handleCardLike}
               onMovieDelete={handleDeleteSavedMovie}
               isLiked={isLiked}
             />
@@ -296,20 +332,22 @@ function App() {
             <ProtectedRoute exact path='/profile' isLoggedIn={isLoggedIn}>
             <Header isLoggedIn={isLoggedIn} />
             <Profile 
-              user={{name: currentUser.name, email: currentUser.email}}
               handleSignOut={handleSignOut}
               handleReqest={changeProfileData}
+              message={message}
             />
             </ProtectedRoute>
           </Route>
           <Route exact path='/signup'>
             <Register 
               handleReqest={handleRegister}
+              message={message}
             />
           </Route>
           <Route exact path='/signin'>
             <Login 
               handleReqest={handleLogin}
+              message={message}
             />
           </Route>
           <Route exact path='*'>

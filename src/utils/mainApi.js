@@ -9,8 +9,9 @@ class MainApi {
       res.json();
   }
 	getSavedMovies() {
-		return fetch(`${this._address}/movies`, {
+		return fetch(`${this._baseUrl}/movies`, {
       method: 'GET',
+      headers: this._headers,
       credentials: 'include',
     })
 		.then(this._getResponseData)
@@ -21,17 +22,17 @@ class MainApi {
       credentials: 'include', 
       headers: this._headers,
       body: JSON.stringify({
-        country: (data.country ? data.country : 'Empty'),
+        country: data.country,
         director: data.director,
         duration: data.duration,
         year: data.year,
         description: data.description,
-        image: `https://api.nomoreparties.co/${data.image.url}`,
+        image: data.image,
         trailerLink:data.trailerLink,
         nameRU: data.nameRU,
-        nameEN: (data.nameEN ? data.nameEN : 'Empty'),
-        thumbnail: `https://api.nomoreparties.co/${data.image.formats.thumbnail.url}`,
-        _id: data.id,
+        nameEN: data.nameEN,
+        thumbnail: data.thumbnail,
+        movieId: data.movieId,
       })
     })
     .then(this._getResponseData)

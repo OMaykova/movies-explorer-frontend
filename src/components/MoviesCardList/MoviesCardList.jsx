@@ -35,9 +35,11 @@ function MoviesCardList({movies, savedMovies, isLoading, nothingFound, searchErr
   }, [location.pathname, screenWidth])
 
   useEffect(() => {
-    if (movies.length) {
-      const list = movies.slice(0, counter.total);
-      setShowMovie(list);
+    if (location.pathname === '/movies') {
+      if (movies.length) {
+        const list = movies.slice(0, counter.total);
+        setShowMovie(list);
+      }
     }
   }, [movies, counter.total])
 
@@ -89,9 +91,9 @@ function MoviesCardList({movies, savedMovies, isLoading, nothingFound, searchErr
               <ul className='movies-grid movies-grid_saved-movies'>
                 {
                   savedMovies.map(movie => 
-                    <li className='movies-grid__container' key={movie._id}>
+                    <li className='movies-grid__container' key={movie.movieId}>
                       <Movie 
-                        key={movie._id}
+                        key={movie.movieId}
                         movie={movie}
                         onMovieDelete={onMovieDelete}
                         isLiked={isLiked}
