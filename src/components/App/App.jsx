@@ -31,8 +31,6 @@ function App() {
   const [isLiked, setIsLiked] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [message, setMessage] = useState('');
-  const [savedMovies, setSavedMovies] = useState([]);
-  const [saveMoviesOfSearch, setSaveMoviesOfSearch] = useState([]);
   const [stateSavedMovies, setStateSavedMovies] =useState(JSON.parse(localStorage.getItem('savedMovies')) ?
   JSON.parse(localStorage.getItem('savedMovies')) : []);
 
@@ -40,7 +38,6 @@ function App() {
     setStateSavedMovies(JSON.parse(localStorage.getItem('savedMovies')) ?
       JSON.parse(localStorage.getItem('savedMovies')) : [])
     setMessage('');
-    console.log('useEffect')
   }, [location])
 
 // БЛОК ФУНКЦИЙ ПОИСКА ФОРМ
