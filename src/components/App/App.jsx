@@ -29,7 +29,7 @@ function App() {
     email: '',
   });
   const [isLiked, setIsLiked] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(undefined);
   const [message, setMessage] = useState('');
   const [stateSavedMovies, setStateSavedMovies] =useState(JSON.parse(localStorage.getItem('savedMovies')) ?
   JSON.parse(localStorage.getItem('savedMovies')) : []);
@@ -249,11 +249,6 @@ function App() {
     auth.getContent()
       .then((data) => {
         if (data) {
-          setCurrentUser({
-            name: data.name,
-            email: data.email,
-            _id: data._id
-          })
           setIsLoggedIn(true);
         }
       })
@@ -277,7 +272,8 @@ function App() {
             _id: res._id
           })
         })
-        .catch((err) => console.log(err))}
+        .catch((err) => console.log(err));
+      }
   }, [isLoggedIn])
 // =================================================
   return (
