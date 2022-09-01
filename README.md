@@ -22,3 +22,5 @@
 'npm start' - запустить приложение в режими 'development mode'. Откройте http://localhost:3000 для просмотра в браузере 
 
 'npm run build' - запустить сборку для 'production' в папке build.
+
+[ССЫЛКА на pullrequest](https://github.com/OMaykova/movies-explorer-frontend/pull/4)
