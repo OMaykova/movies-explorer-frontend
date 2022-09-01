@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './Profile.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Profile({handleSignOut, handleReqest, message}) {
+function Profile({handleSignOut, handleReqest, message, setMessage}) {
   const currentUser = useContext(CurrentUserContext);
   const [editing, setEditing] = useState(false);
   const [formValuesProfile, setFormValuesProfile] = useState({name:'', email:''})
@@ -14,6 +14,7 @@ function Profile({handleSignOut, handleReqest, message}) {
 
   function handleEditButtonProfile() {
     setEditing(true)
+    setMessage('')
   }
 
   function handleChange(e) {
@@ -48,8 +49,10 @@ function Profile({handleSignOut, handleReqest, message}) {
 
   function handleSubmitProfile(e) {
     e.preventDefault(e);
-    handleReqest({name: formValuesProfile.name, email: formValuesProfile.email });
-    setEditing(false)
+    const nameValue = formValuesProfile.name ? formValuesProfile.name : currentUser.name;
+    const emailValue = formValuesProfile.email ? formValuesProfile.email : currentUser.email;
+    handleReqest({name: nameValue, email: emailValue });
+    setTimeout(() => {setEditing(false)}, 2000)
   }
 
   const disabled = editing ? '' : 'disabled';

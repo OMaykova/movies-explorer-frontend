@@ -221,7 +221,9 @@ function App() {
     .then((res) => {
       if(res) {
         setMessage('Регистрация прошла успешно')
-        setTimeout(() => {history.push('/signin')}, 2000);
+        setTimeout(() => {
+          handleLogin({email, password})
+        }, 1000);
         } 
     })
     .catch((err) => {
@@ -255,19 +257,21 @@ function App() {
       .then(console.log('Куки удален!'))
       setIsLoggedIn(false);
       localStorage.clear();
-      history.push('/signup');
+      history.push('/');
   }
 
   function changeProfileData({name, email}) {
+    console.log(name, email)
     mainApi.editProfile(name, email)
     .then((res) => {
-      setMessage('')
+      setMessage('Данные успешно сохранены!')
       setCurrentUser(res)
     })
     .catch((err) => {
       if (err.includes(409)) {
         setMessage("Пользователь с таким email уже существует");
       } else {
+        console.log(err)
         setMessage("При обновлении профиля произошла ошибка");
       }
     })
@@ -355,6 +359,7 @@ function App() {
               handleSignOut={handleSignOut}
               handleReqest={changeProfileData}
               message={message}
+              setMessage={setMessage}
             />
             </ProtectedRoute>
           </Route>
