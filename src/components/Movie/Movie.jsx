@@ -21,7 +21,7 @@ function Movie({movie, onMovieLike, onMovieDelete, isLiked}) {
 
   return(
     <figure className='movie-template'>
-      <img className='movie__image' src={location.pathname==='/movies'? `https://api.nomoreparties.co${movie.image.url}` : movie.image} alt='Обложка фильма'/>
+      <a className='movie__trailler' href={movie.trailerLink} target='_blank' rel="noreferrer"><img className='movie__image' src={location.pathname==='/movies'? `https://api.nomoreparties.co${movie.image.url}` : movie.image} alt='Обложка фильма'/></a>
       <figcaption className='movie__caption'>
         <div className='movie__container'>
           <h3 className='movie__title'>{movie.nameRU}</h3>
