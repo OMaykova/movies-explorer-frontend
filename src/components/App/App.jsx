@@ -33,12 +33,38 @@ function App() {
   const [message, setMessage] = useState('');
   const [stateSavedMovies, setStateSavedMovies] =useState(JSON.parse(localStorage.getItem('savedMovies')) ?
   JSON.parse(localStorage.getItem('savedMovies')) : []);
+  const [movies, setMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
 
   useEffect(() => {
-    setStateSavedMovies(JSON.parse(localStorage.getItem('savedMovies')) ?
-      JSON.parse(localStorage.getItem('savedMovies')) : [])
-    setMessage('');
-  }, [location])
+    const localMovies = localStorage.getItem('movies');
+    if (localMovies) {
+      setMovies(JSON.parse(localMovies))
+    } else {
+      movieApi.getMovies()
+        .then((movies) => {
+          setMovies(movies)
+          localStorage.setItem('movies', JSON.stringify(movies))
+        })
+        .catch((err) => console.log(err))
+    }
+    const localSavedMovies = localStorage.getItem('savedMovies');
+    if (localSavedMovies) {
+      setSavedMovies(JSON.parse(localSavedMovies))
+    } else {
+    mainApi.getSavedMovies()
+      .then((res) => {
+        setStateSavedMovies(res)
+        localStorage.setItem('savedMovies', JSON.stringify(res))
+        setSavedMovies(res)
+      })
+    }
+    const likedMovies = [];
+      savedMovies.forEach((movie) => {
+        likedMovies.push(movie.movieId)
+      })
+        localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
+  }, [])
 
 // БЛОК ФУНКЦИЙ ПОИСКА ФОРМ
 // =================================================
@@ -54,10 +80,6 @@ function App() {
           likedMovies.push(movie.movieId)
         })
         localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
-      })
-      .catch(err => console.log(err));
-    movieApi.getMovies()
-      .then((movies) => {
       const stateOfValue = localStorage.getItem('searchValue');
       const stateOfCheckbox = JSON.parse(localStorage.getItem('checkbox'));
       const resultOfSearchByValue = movies.filter(movie =>
@@ -81,7 +103,7 @@ function App() {
       } else {
         setNothingFound(false);
       }
-      })
+    })
       .catch(err => {
         setSearchError(true);
         console.log(err)})
@@ -110,7 +132,6 @@ function App() {
             :
             movie
         )
-        localStorage.setItem('savedMoviesOfSearch', JSON.stringify(resultOfSearch))
         setStateSavedMovies(resultOfSearch)
         if (resultOfSearch.length === 0) {
           setNothingFound(true);
@@ -123,6 +144,12 @@ function App() {
         console.log(err)})
       .finally(() => setIsLoading(false));
   }
+
+  useEffect(() => {
+    setStateSavedMovies(JSON.parse(localStorage.getItem('savedMovies')) ?
+      JSON.parse(localStorage.getItem('savedMovies')) : [])
+    setMessage('');
+  }, [location])
   // =================================================
   // БЛОК РАБОТЫ С ФИЛЬМОМ
   // =================================================
@@ -155,7 +182,6 @@ function App() {
       })
       .catch((err) => console.log(err))
     } else {
-      // const movieWillDislike = JSON.parse(localStorage.getItem('savedMovies')).filter((m) => m.movieId === movie.id)
       handleDeleteCardLike(movie)
       setIsLiked(false);        
     }
@@ -213,6 +239,7 @@ function App() {
       if (data) {
         setMessage('Вы успешно авторизовались')
         setIsLoggedIn(true);
+        history.push("/movies");
       } 
     })
     .catch((err) => {
@@ -227,6 +254,7 @@ function App() {
     auth.signout()
       .then(console.log('Куки удален!'))
       setIsLoggedIn(false);
+      localStorage.clear();
       history.push('/signup');
   }
 
@@ -263,7 +291,6 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      history.push("/movies");
       mainApi.getUserInfo()
         .then((res) => {
           setCurrentUser({
@@ -287,7 +314,7 @@ function App() {
             <Main />
             <Footer />
           </Route>
-          <Route path='/movies'>
+          <Route exact path='/movies'>
             <ProtectedRoute exact path='/movies' isLoggedIn={isLoggedIn}>
             <Header isLoggedIn={isLoggedIn}/>
             <Movies 
@@ -305,7 +332,7 @@ function App() {
             <Footer />
             </ProtectedRoute>
           </Route>
-          <Route path='/saved-movies'>
+          <Route exact path='/saved-movies'>
           <ProtectedRoute exact path='/saved-movies' isLoggedIn={isLoggedIn}>
             <Header isLoggedIn={isLoggedIn}/>
             <SavedMovies 
@@ -321,7 +348,7 @@ function App() {
             <Footer />
             </ProtectedRoute>
           </Route>
-          <Route path='/profile'>
+          <Route exact path='/profile'>
             <ProtectedRoute exact path='/profile' isLoggedIn={isLoggedIn}>
             <Header isLoggedIn={isLoggedIn} />
             <Profile 

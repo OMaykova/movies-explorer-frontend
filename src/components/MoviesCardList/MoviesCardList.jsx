@@ -10,18 +10,9 @@ function MoviesCardList({movies, savedMovies, isLoading, nothingFound, searchErr
   const location = useLocation()
   const classNameMoviesList = isLoading || nothingFound || searchError ? 'movies-card-list movies-card-list_hidden' : 'movies-card-list';
   const screenWidth = useWindowDimensions();
-  // window.screen.width;
   const [counter, setCounter] = useState({total: screenWidth.width, more: 3})
-    // screenWidth >= 1024 ? 12
-    // :
-    // screenWidth > 480 ? 8
-    // :
-    // 5
-  // )
-
   const [showMovie, setShowMovie] = useState([]);
   
-
   useEffect(() => {
     if (location.pathname === '/movies') {
     if (screenWidth.width > 1024) {
@@ -43,16 +34,10 @@ function MoviesCardList({movies, savedMovies, isLoading, nothingFound, searchErr
     }
   }, [movies, counter.total])
 
-  // function handleMoreButton() {
-  //   screenWidth >= 1024 ? setCounter(counter + 3)
-  //   :
-  //   setCounter(counter + 2)
-  // }
   function handleMoreButton() {
     let start = counter.total + counter.more
     setCounter({total: start, more: counter.more})
   }
-
 
   return(
     <>

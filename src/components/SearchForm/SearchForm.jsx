@@ -5,10 +5,8 @@ import {useLocation} from 'react-router-dom'
 function SearchForm({handlSearchMovie, setSearchError, handleSearchSavedMovies}) {
   const location = useLocation();
   const [isEmpty, setIsEmpty] = useState(false);
-  // const searchValue = (location.pathname === '/movies' && localStorage.getItem('searchValue') ? localStorage.getItem('searchValue') : '');
   const [searchValue, setSearchValue] = useState(location.pathname === '/movies' && localStorage.getItem('searchValue') ? localStorage.getItem('searchValue') : '');
   const [searchValueOfSavedMovie, setSearchValueOfSavedMovie] = useState(location.pathname === '/saved-movies' && localStorage.getItem('searchValueOfSavedMovie') ? localStorage.getItem('searchValueOfSavedMovie') : '');
-  // const searchValueOfSavedMovie = (location.pathname === '/saved-movies' && localStorage.getItem('searchValueOfSavedMovie') ? localStorage.getItem('searchValueOfSavedMovie') : '');
   const checkbox = (location.pathname === '/movies' ? JSON.parse(localStorage.getItem('checkbox')) : false);
 
   function handleChangeSearchInput(e) {
@@ -29,10 +27,9 @@ function SearchForm({handlSearchMovie, setSearchError, handleSearchSavedMovies})
     } else if (location.pathname === '/saved-movies') {
       localStorage.setItem('checkboxOfSaved', JSON.stringify(e.target.checked));
     }
-    // if (localStorage.getItem('searchValue') || localStorage.getItem('searchValueOfSavedMovie')) {
     if (location.pathname === '/movies' && (localStorage.getItem('searchValue'))) {
       handlSearchMovie();
-    } else if (location.pathname === '/saved-movies' && (localStorage.getItem('searchValueOfSavedMovie'))) {
+    } else if (location.pathname === '/saved-movies' && searchValueOfSavedMovie) {
       handleSearchSavedMovies();
     }
   }
