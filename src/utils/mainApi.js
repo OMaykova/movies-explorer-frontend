@@ -69,7 +69,7 @@ class MainApi {
 
 export const mainApi = new MainApi({
   // baseUrl: 'http://localhost:3001',
-  baseUrl: 'https//api.filmoteka.nomoredomains.xyz',
+  baseUrl: `${window.location.protocol}${process.env.REACT_APP_API_URL || '//localhost:3001'}`,
   headers: {
     'Content-Type': 'application/json'
   }
