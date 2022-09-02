@@ -44,7 +44,7 @@ function Form({formName, buttonTitle, handleReqest, message}) {
         setPasswordError('Пароль должен содержать не менее 3 символов');
         setIsValidPassword(false)
       } else if (!validPassword) {
-        setPasswordError('Пароль может содержать только буквы a-z, цифры 0-9 и не содержит пробел');
+        setPasswordError('Пароль должен содержать по крайней мере одну цифру 0-9, одну букву a-z и не содержать пробел');
       } else {
         setPasswordError('');
       }
