@@ -36,16 +36,17 @@ function Form({formName, buttonTitle, handleReqest, message}) {
         setEmailError('')
       }
     } else if (name === 'password') {
-      const validPassword = /^(?=.*\d)(?=.*[a-z])[a-z0-9]{3,}$/.test(value)
-      setIsValidPassword(validPassword)
+      // const validPassword = /^(?=.*\d)(?=.*[a-z])[a-z0-9]{3,}$/.test(value)
+      // setIsValidPassword(validPassword)
       if (value.length < 1) {
         setPasswordError('Необходимо заполнить это поле');
       } else if (value.length < 3) {
         setPasswordError('Пароль должен содержать не менее 3 символов');
-        setIsValidPassword(false)
-      } else if (!validPassword) {
-        setPasswordError('Пароль должен содержать по крайней мере одну цифру 0-9, одну букву a-z и не содержать пробел');
+        // setIsValidPassword(false)
+      // } else if (!validPassword) {
+      //   setPasswordError('Пароль должен содержать по крайней мере одну цифру 0-9, одну букву a-z и не содержать пробел');
       } else {
+        setIsValidPassword(true);
         setPasswordError('');
       }
     }
