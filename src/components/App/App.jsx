@@ -224,14 +224,13 @@ function App() {
         setTimeout(() => {
           handleLogin({email, password})
         }, 1000);
-        } 
+      } else {
+        setMessage("Пользователь с таким email уже существует");
+      }
     })
     .catch((err) => {
-      if (err.includes(409)) {
-        setMessage("Пользователь с таким email уже существует");
-      } else {
-        setMessage("При регистрации пользователя произошла ошибка");
-      }
+      console.log(err)
+      setMessage("При регистрации пользователя произошла ошибка");
     });
   }
 
@@ -242,14 +241,13 @@ function App() {
         setMessage('Вы успешно авторизовались')
         setIsLoggedIn(true);
         history.push("/movies");
-      } 
+      } else {
+        setMessage("Неверный логин или пароль");
+      }
     })
     .catch((err) => {
-      if (err.includes(401)) {
-        setMessage("Неверный логин или пароль");
-      } else {
-        setMessage("При равторизации произошла ошибка");
-      }
+      console.log(err)
+      setMessage("При равторизации произошла ошибка");
     });
   }
   function handleSignOut() {
@@ -261,7 +259,6 @@ function App() {
   }
 
   function changeProfileData({name, email}) {
-    console.log(name, email)
     mainApi.editProfile(name, email)
     .then((res) => {
       setMessage('Данные успешно сохранены!')
