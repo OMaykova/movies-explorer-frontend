@@ -4,7 +4,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import './Movies.css';
 
-function Movies({movies, isLoading, nothingFound, handlSearchMovie, searchError, setSearchError, onMovieLike, isLiked}) {
+function Movies({movies, isLoading, nothingFound, handlSearchMovie, searchError, setSearchError, onMovieLike, isLikedMovie, setStateSavedMovies}) {
 
   return(
     <section className='movies'>
@@ -13,12 +13,13 @@ function Movies({movies, isLoading, nothingFound, handlSearchMovie, searchError,
         setSearchError={setSearchError}
       />
       <MoviesCardList 
+        setStateSavedMovies={setStateSavedMovies}
         nothingFound={nothingFound}
         movies={movies}
         isLoading={isLoading}
         searchError={searchError}
         onMovieLike={onMovieLike}
-        isLiked={isLiked}
+        isLikedMovie={isLikedMovie}
       />
       <Preloader 
         isLoading={isLoading}

@@ -6,7 +6,7 @@ import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { useEffect } from "react";
 
 
-function MoviesCardList({movies, savedMovies, isLoading, nothingFound, searchError, onMovieLike, onMovieDelete, isLiked}) {
+function MoviesCardList({movies, savedMovies, isLoading, nothingFound, searchError, onMovieLike, onMovieDelete, isLikedMovie, setStateSavedMovies}) {
   const location = useLocation()
   const classNameMoviesList = isLoading || nothingFound || searchError ? 'movies-card-list movies-card-list_hidden' : 'movies-card-list';
   const screenWidth = useWindowDimensions();
@@ -49,16 +49,16 @@ function MoviesCardList({movies, savedMovies, isLoading, nothingFound, searchErr
         :
         <section className={classNameMoviesList}>
           {location.pathname === '/movies' &&
-            <React.Fragment>
+            <>
               <ul className='movies-grid'>
                 {
                   showMovie.map(movie => 
                     <li className='movies-grid__container' key={movie.id}>
                       <Movie 
-                        key={movie.id}
+                        setStateSavedMovies={setStateSavedMovies}
                         movie={movie}
                         onMovieLike={onMovieLike}
-                        isLiked={isLiked}
+                        isLikedMovie={isLikedMovie}
                       />
                     </li>
                   )
@@ -69,25 +69,25 @@ function MoviesCardList({movies, savedMovies, isLoading, nothingFound, searchErr
                 :
                 ''
               }
-            </React.Fragment>
+            </>
           }
           {location.pathname === '/saved-movies' &&
-            <React.Fragment>
+            <>
               <ul className='movies-grid movies-grid_saved-movies'>
                 {
                   savedMovies.map(movie => 
                     <li className='movies-grid__container' key={movie.movieId}>
                       <Movie 
-                        key={movie.movieId}
+                        setStateSavedMovies={setStateSavedMovies}
                         movie={movie}
                         onMovieDelete={onMovieDelete}
-                        isLiked={isLiked}
+                        isLikedMovie={isLikedMovie}
                       />
                     </li>
                   )
                 }
               </ul>
-            </React.Fragment>
+            </>
           }
         </section>
     }

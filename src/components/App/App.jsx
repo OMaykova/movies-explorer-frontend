@@ -28,8 +28,8 @@ function App() {
     name: '',
     email: '',
   });
-  const [isLiked, setIsLiked] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(undefined);
+  // const [isLiked, setIsLiked] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [message, setMessage] = useState('');
   const [stateSavedMovies, setStateSavedMovies] =useState(JSON.parse(localStorage.getItem('savedMovies')) ?
   JSON.parse(localStorage.getItem('savedMovies')) : []);
@@ -37,33 +37,35 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
 
   useEffect(() => {
-    const localMovies = localStorage.getItem('movies');
-    if (localMovies) {
-      setMovies(JSON.parse(localMovies))
-    } else {
-      movieApi.getMovies()
-        .then((movies) => {
-          setMovies(movies)
-          localStorage.setItem('movies', JSON.stringify(movies))
+  
+      const localMovies = localStorage.getItem('movies');
+      if (localMovies) {
+        setMovies(JSON.parse(localMovies))
+      } else {
+        movieApi.getMovies()
+          .then((movies) => {
+            setMovies(movies)
+            localStorage.setItem('movies', JSON.stringify(movies))
+          })
+          .catch((err) => console.log(err))
+      }
+      const localSavedMovies = localStorage.getItem('savedMovies');
+      if (localSavedMovies) {
+        setSavedMovies(JSON.parse(localSavedMovies))
+      } else {
+      mainApi.getSavedMovies()
+        .then((res) => {
+          setStateSavedMovies(res)
+          localStorage.setItem('savedMovies', JSON.stringify(res))
+          setSavedMovies(res)
         })
-        .catch((err) => console.log(err))
-    }
-    const localSavedMovies = localStorage.getItem('savedMovies');
-    if (localSavedMovies) {
-      setSavedMovies(JSON.parse(localSavedMovies))
-    } else {
-    mainApi.getSavedMovies()
-      .then((res) => {
-        setStateSavedMovies(res)
-        localStorage.setItem('savedMovies', JSON.stringify(res))
-        setSavedMovies(res)
-      })
-    }
-    const likedMovies = [];
-      savedMovies.forEach((movie) => {
-        likedMovies.push(movie.movieId)
-      })
-        localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
+      }
+      const likedMovies = [];
+        savedMovies.forEach((movie) => {
+          likedMovies.push(movie.movieId)
+        })
+          localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
+  
   }, [])
 
 // БЛОК ФУНКЦИЙ ПОИСКА ФОРМ
@@ -153,66 +155,70 @@ function App() {
   // =================================================
   // БЛОК РАБОТЫ С ФИЛЬМОМ
   // =================================================
-   function handleCardLike(movie) {
-    if (location.pathname === '/movies') {
-      setIsLiked(JSON.parse(localStorage.getItem('likedMovies')).includes(movie.id))
-    }
-    if (!isLiked) {
-      mainApi.addSavedMovies({
-        country: (movie.country ? movie.country : 'Empty'),
-        director: movie.director,
-        duration: movie.duration,
-        year: movie.year,
-        description: movie.description,
-        image: `https://api.nomoreparties.co${movie.image.url}`,
-        trailerLink: movie.trailerLink,
-        nameRU: movie.nameRU,
-        nameEN: (movie.nameEN ? movie.nameEN : 'Empty'),
-        thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
-        movieId: movie.id,
-      })
-      .then((movie) => {
-        const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
-        savedMovies.push(movie);
-        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
-        const likedMovies = JSON.parse(localStorage.getItem('likedMovies'));
-        likedMovies.push(movie.movieId);
-        localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
-        setIsLiked(true);
-      })
-      .catch((err) => console.log(err))
-    } else {
-      handleDeleteCardLike(movie)
-      setIsLiked(false);        
-    }
-  }
-  function handleDeleteCardLike(movie) {
-    JSON.parse(localStorage.getItem('savedMovies')).forEach((m) => {
-      if (m.movieId === movie.id) {
-        mainApi.removeSavedMovies(m._id)
-        .then(() => {
-          const likedMovies = JSON.parse(localStorage.getItem('likedMovies')).filter((id) => id !== m.movieId);
-          localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
-          const savedMovies = JSON.parse(localStorage.getItem('savedMovies')).filter((s) => s._id !== m._id)
-          localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
-          setStateSavedMovies(savedMovies)
-        })
-        .catch((err) => console.log(err))
-      }
-    })
-  }
-  function handleDeleteSavedMovie(movie) {
-    mainApi.removeSavedMovies(movie._id)
-      .then(() => {
-        const likedMovies = JSON.parse(localStorage.getItem('likedMovies')).filter((id) => id !== movie.movieId);
-        localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
-        const savedMovies = JSON.parse(localStorage.getItem('savedMovies')).filter((s) => s._id !== movie._id)
-        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
-        setStateSavedMovies(savedMovies)
+  //  function isLikedMovie(movie) {
+  //   return JSON.parse(localStorage.getItem('likedMovies')).includes(movie.id)
+  //  }
+
+  //  function handleCardLike(movie, isLiked) {
+  //   // if (location.pathname === '/movies') {
+  //   //   setIsLiked(JSON.parse(localStorage.getItem('likedMovies')).includes(movie.id))
+  //   // }
+  //   if (!isLiked) {
+  //     mainApi.addSavedMovies({
+  //       country: (movie.country ? movie.country : 'Empty'),
+  //       director: (movie.director ? movie.director : 'Empty'),
+  //       duration: (movie.duration ? movie.duration : 0),
+  //       year: (movie.year ? movie.year : 'Empty'),
+  //       description: (movie.description ? movie.description : 'Empty'),
+  //       image: (movie.image.url ? `https://api.nomoreparties.co${movie.image.url}` : 'https://filmoteka.nomoredomains.xyz/pagenotfound'),
+  //       trailerLink: (movie.trailerLink ? movie.trailerLink : 'https://filmoteka.nomoredomains.xyz/pagenotfound'),
+  //       nameRU: (movie.nameRU ? movie.nameRU : 'Empty'),
+  //       nameEN: (movie.nameEN ? movie.nameEN : 'Empty'),
+  //       thumbnail: (movie.image.formats.thumbnail.url ? `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}` : 'https://filmoteka.nomoredomains.xyz/pagenotfound'),
+  //       movieId: movie.id,
+  //     })
+  //     .then((movie) => {
+  //       const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+  //       savedMovies.push(movie);
+  //       localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+  //       const likedMovies = JSON.parse(localStorage.getItem('likedMovies'));
+  //       likedMovies.push(movie.movieId);
+  //       localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
+  //       // setIsLiked(true);
+  //     })
+  //     .catch((err) => console.log(err))
+  //   } else {
+  //     handleDeleteCardLike(movie)
+  //     // setIsLiked(false);        
+  //   }
+  // }
+  // function handleDeleteCardLike(movie) {
+  //   JSON.parse(localStorage.getItem('savedMovies')).forEach((m) => {
+  //     if (m.movieId === movie.id) {
+  //       mainApi.removeSavedMovies(m._id)
+  //       .then(() => {
+  //         const likedMovies = JSON.parse(localStorage.getItem('likedMovies')).filter((id) => id !== m.movieId);
+  //         localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
+  //         const savedMovies = JSON.parse(localStorage.getItem('savedMovies')).filter((s) => s._id !== m._id)
+  //         localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+  //         setStateSavedMovies(savedMovies)
+  //       })
+  //       .catch((err) => console.log(err))
+  //     }
+  //   })
+  // }
+  // function handleDeleteSavedMovie(movie) {
+  //   mainApi.removeSavedMovies(movie._id)
+  //     .then(() => {
+  //       const likedMovies = JSON.parse(localStorage.getItem('likedMovies')).filter((id) => id !== movie.movieId);
+  //       localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
+  //       const savedMovies = JSON.parse(localStorage.getItem('savedMovies')).filter((s) => s._id !== movie._id)
+  //       localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+  //       setStateSavedMovies(savedMovies)
           
-      })
-      .catch((err) => console.log(err))
-  }
+  //     })
+  //     .catch((err) => console.log(err))
+  // }
 // =================================================
 // БЛОК АУТЕНТИФИКАЦИИ И АВТОРИЗАЦИИ
 // =================================================
@@ -247,7 +253,7 @@ function App() {
     })
     .catch((err) => {
       console.log(err)
-      setMessage("При равторизации произошла ошибка");
+      setMessage("При авторизации произошла ошибка");
     });
   }
   function handleSignOut() {
@@ -319,6 +325,7 @@ function App() {
             <ProtectedRoute exact path='/movies' isLoggedIn={isLoggedIn}>
             <Header isLoggedIn={isLoggedIn}/>
             <Movies 
+              setStateSavedMovies={setStateSavedMovies}
               movies={JSON.parse(localStorage.getItem('moviesOfSearch')) ?
                 JSON.parse(localStorage.getItem('moviesOfSearch')) : []}
               isLoading={isLoading}
@@ -326,9 +333,10 @@ function App() {
               handlSearchMovie={handlSearchMovie}
               searchError={searchError}
               setSearchError={setSearchError}
-              onMovieLike={handleCardLike}
-              onMovieDelete={handleDeleteSavedMovie}
-              isLiked={isLiked}
+              // onMovieLike={handleCardLike}
+              // onMovieDelete={handleDeleteSavedMovie}
+              // isLikedMovie={isLikedMovie}
+              // isLiked={isLiked}
             />
             <Footer />
             </ProtectedRoute>
@@ -337,14 +345,16 @@ function App() {
           <ProtectedRoute exact path='/saved-movies' isLoggedIn={isLoggedIn}>
             <Header isLoggedIn={isLoggedIn}/>
             <SavedMovies 
+              setStateSavedMovies={setStateSavedMovies}
               savedMovies={stateSavedMovies}
               isLoading={isLoading}
               nothingFound={nothingFound}
               handleSearchSavedMovies={handleSearchSavedMovies}
               searchError={searchError}
               setSearchError={setSearchError}
-              onMovieDelete={handleDeleteSavedMovie}
-              isLiked={isLiked}
+              // onMovieDelete={handleDeleteSavedMovie}
+              // isLiked={isLikedMovie}
+              // isLiked={isLiked}
             />
             <Footer />
             </ProtectedRoute>

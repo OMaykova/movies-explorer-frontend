@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './PageNotFound.css';
 
-function PageNotFound({setIsLoggedIn}) {
+function PageNotFound() {
   const history = useHistory();
   function handleGoBack() {
     history.goBack()
@@ -13,7 +13,7 @@ function PageNotFound({setIsLoggedIn}) {
       <h2 className='error__code'>404</h2>
       <p className='error__text'>Страница не найдена</p>
       </div>
-      <Link onClick={handleGoBack} className='pageNotFound__link'>Назад</Link>
+      <button onClick={handleGoBack} className='pageNotFound__link'>Назад</button>
     </section>
   )
 }

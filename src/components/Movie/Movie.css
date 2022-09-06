@@ -86,6 +86,9 @@
   .movie__container {
     margin-bottom: 7px;
   }
+  .movie__button_hidden {
+    visibility: visible;
+  }
 }
 @media screen and (max-width: 500px) {
   .movie-template {

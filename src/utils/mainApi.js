@@ -47,6 +47,7 @@ class MainApi {
   }
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
+      method: 'GET',
       headers: this._headers,
       credentials: 'include',
     })
