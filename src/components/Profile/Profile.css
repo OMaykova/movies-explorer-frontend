@@ -107,6 +107,7 @@
   line-height: 13px;
   text-align: center;
   color: #EE3465;
+  margin-bottom: 20px;
 }
 .profile__edit-container {
   display: flex;

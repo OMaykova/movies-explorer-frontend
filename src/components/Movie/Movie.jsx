@@ -7,24 +7,11 @@ import { useLocation } from "react-router-dom";
 import { getTimeFromMins } from "../../utils/utils";
 import { mainApi } from '../../utils/mainApi';
 
-function Movie({movie, setStateSavedMovies, onMovieLike, onMovieDelete, isLikedMovie}) {
+function Movie({movie, setStateSavedMovies}) {
   const location = useLocation();
   const [isLiked, setIsLiked] = useState(location.pathname === '/movies' ? JSON.parse(localStorage.getItem('likedMovies')).includes(movie.id) : false);
-  // const isLiked = isLikedMovie(movie)
-  // console.log('isLiked', isLiked)
-
-  // function handleLikeClick() { 
-  //   onMovieLike(movie, isLiked);
-  // }
-  // function handleDeleteClick() {
-  //   onMovieDelete(movie, isLiked)
-  // }
-  // const likedMovies = JSON.parse(localStorage.getItem('likedMovies'))
 
   function handleCardLike() {
-    // if (location.pathname === '/movies') {
-    //   setIsLiked(JSON.parse(localStorage.getItem('likedMovies')).includes(movie.id))
-    // }
     if (!isLiked) {
       mainApi.addSavedMovies({
         country: (movie.country ? movie.country : 'Empty'),

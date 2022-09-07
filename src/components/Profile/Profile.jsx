@@ -2,15 +2,18 @@ import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './Profile.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { useEffect } from 'react';
+
 
 function Profile({handleSignOut, handleReqest, message, setMessage}) {
   const currentUser = useContext(CurrentUserContext);
   const [editing, setEditing] = useState(false);
-  const [formValuesProfile, setFormValuesProfile] = useState({name:'', email:''})
+  const [formValuesProfile, setFormValuesProfile] = useState({name: currentUser.name, email: currentUser.email})
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidName, setIsValidName] = useState(true);
   const [emailError, setEmailError] = useState('');
   const [nameError, setNameError] = useState('');
+  const [enableButton, setEnableButton] = useState(false)
 
   function handleEditButtonProfile() {
     setEditing(true)
@@ -46,13 +49,18 @@ function Profile({handleSignOut, handleReqest, message, setMessage}) {
       [name]: value
     }));
   }
+  useEffect(() => {
+    (formValuesProfile.name !== currentUser.name) || (formValuesProfile.email !== currentUser.email) ? setEnableButton(true) : setEnableButton(false)
+  }, [formValuesProfile])
+
 
   function handleSubmitProfile(e) {
     e.preventDefault(e);
+    setEditing(false)
     const nameValue = formValuesProfile.name ? formValuesProfile.name : currentUser.name;
     const emailValue = formValuesProfile.email ? formValuesProfile.email : currentUser.email;
     handleReqest({name: nameValue, email: emailValue });
-    setTimeout(() => {setEditing(false)}, 2000)
+    setTimeout(() => {setMessage('')}, 1000)
   }
 
   const disabled = editing ? '' : 'disabled';
@@ -78,9 +86,9 @@ function Profile({handleSignOut, handleReqest, message, setMessage}) {
           <span className='profile-input__error'>{emailError}</span>
         </div>
         <div className='form__button-container'>
+          <span className='form__error'>{message}</span>
           <div className='form__button-confirm-container' style={displayFormButton}>
-            <span className='form__error'>{message}</span>
-            <button className={`form__button-profile ${isValidName && isValidEmail ? '' : 'form__button-profile_disabled'}`} onClick={handleSubmitProfile} disabled={isValidName && isValidEmail ? '' : 'disabled'}>Сохранить</button>
+            <button className={`form__button-profile ${(isValidName || isValidEmail) && enableButton ? '' : 'form__button-profile_disabled'}`} onClick={handleSubmitProfile} disabled={(isValidName || isValidEmail) && enableButton ? '' : 'disabled'}>Сохранить</button>
           </div>
           <div className={displayEditButtonClassName}>
             <button className='profile__edit-button' type='button' title='Редактировать' onClick={handleEditButtonProfile}>Редактировать</button>

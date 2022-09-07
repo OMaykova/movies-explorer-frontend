@@ -29,7 +29,7 @@ function SearchForm({handlSearchMovie, setSearchError, handleSearchSavedMovies})
     }
     if (location.pathname === '/movies' && (localStorage.getItem('searchValue'))) {
       handlSearchMovie();
-    } else if (location.pathname === '/saved-movies' && searchValueOfSavedMovie) {
+    } else if (location.pathname === '/saved-movies') {
       handleSearchSavedMovies();
     }
   }

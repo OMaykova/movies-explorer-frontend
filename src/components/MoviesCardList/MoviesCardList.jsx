@@ -4,23 +4,32 @@ import './MoviesCardList.css';
 import { useLocation } from "react-router-dom";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { useEffect } from "react";
+import {
+  desktop,
+  mobile,
+  totalDesktop,
+  totalTablet,
+  totalMobile,
+  moreDesktop,
+  moreTablet,
+  moreMobile
+} from '../../utils/constants'
 
-
-function MoviesCardList({movies, savedMovies, isLoading, nothingFound, searchError, onMovieLike, onMovieDelete, isLikedMovie, setStateSavedMovies}) {
+function MoviesCardList({movies, savedMovies, isLoading, nothingFound, searchError, setStateSavedMovies}) {
   const location = useLocation()
   const classNameMoviesList = isLoading || nothingFound || searchError ? 'movies-card-list movies-card-list_hidden' : 'movies-card-list';
   const screenWidth = useWindowDimensions();
-  const [counter, setCounter] = useState({total: screenWidth.width, more: 3})
+  const [counter, setCounter] = useState({total: 0, more: 0})
   const [showMovie, setShowMovie] = useState([]);
   
   useEffect(() => {
     if (location.pathname === '/movies') {
-    if (screenWidth.width > 1024) {
-      setCounter({total:12, more: 3})
-    } else if (screenWidth.width < 1024 && screenWidth.width > 480) {
-      setCounter({total:8, more: 2})
-    } else if (screenWidth.width < 480) {
-      setCounter({total:5, more: 2})
+    if (screenWidth.width > desktop) {
+      setCounter({total: totalDesktop, more: moreDesktop})
+    } else if (screenWidth.width < desktop && screenWidth.width > mobile) {
+      setCounter({total: totalTablet, more: moreTablet})
+    } else if (screenWidth.width < mobile) {
+      setCounter({total: totalMobile, more: moreMobile})
     }
     }
   }, [location.pathname, screenWidth])
@@ -57,8 +66,6 @@ function MoviesCardList({movies, savedMovies, isLoading, nothingFound, searchErr
                       <Movie 
                         setStateSavedMovies={setStateSavedMovies}
                         movie={movie}
-                        onMovieLike={onMovieLike}
-                        isLikedMovie={isLikedMovie}
                       />
                     </li>
                   )
@@ -80,8 +87,6 @@ function MoviesCardList({movies, savedMovies, isLoading, nothingFound, searchErr
                       <Movie 
                         setStateSavedMovies={setStateSavedMovies}
                         movie={movie}
-                        onMovieDelete={onMovieDelete}
-                        isLikedMovie={isLikedMovie}
                       />
                     </li>
                   )
