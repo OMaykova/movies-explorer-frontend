@@ -57,6 +57,7 @@ function Profile({handleSignOut, handleReqest, message, setMessage}) {
   function handleSubmitProfile(e) {
     e.preventDefault(e);
     setEditing(false)
+    setEnableButton(false)
     const nameValue = formValuesProfile.name ? formValuesProfile.name : currentUser.name;
     const emailValue = formValuesProfile.email ? formValuesProfile.email : currentUser.email;
     handleReqest({name: nameValue, email: emailValue });

@@ -16,15 +16,15 @@ export const register = (name, password, email) => {
     method: 'POST',
     credentials: 'include',
     headers: {
-			'Accept': 'application/json',
+      'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-		
+    
     body: JSON.stringify({
-			"name": name,
-			"password": password,
+      "name": name,
+      "password": password,
       "email": email 
-		})
+    })
   })
   .then(checkResponse)
 };
@@ -36,9 +36,9 @@ export const authorize = (email, password) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-			"email": email,
-			"password": password
-  	})
+      "email": email,
+      "password": password
+    })
   })
   .then(checkResponse)
 };

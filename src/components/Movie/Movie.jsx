@@ -6,6 +6,7 @@ import deleted from '../../images/delete.svg';
 import { useLocation } from "react-router-dom";
 import { getTimeFromMins } from "../../utils/utils";
 import { mainApi } from '../../utils/mainApi';
+const validator = require('validator');
 
 function Movie({movie, setStateSavedMovies}) {
   const location = useLocation();
@@ -20,7 +21,7 @@ function Movie({movie, setStateSavedMovies}) {
         year: (movie.year ? movie.year : 'Empty'),
         description: (movie.description ? movie.description : 'Empty'),
         image: (movie.image.url ? `https://api.nomoreparties.co${movie.image.url}` : 'https://filmoteka.nomoredomains.xyz/pagenotfound'),
-        trailerLink: (movie.trailerLink ? movie.trailerLink : 'https://filmoteka.nomoredomains.xyz/pagenotfound'),
+        trailerLink: (validator.isURL(movie.trailerLink) ? movie.trailerLink : 'https://filmoteka.nomoredomains.xyz/pagenotfound'),
         nameRU: (movie.nameRU ? movie.nameRU : 'Empty'),
         nameEN: (movie.nameEN ? movie.nameEN : 'Empty'),
         thumbnail: (movie.image.formats.thumbnail.url ? `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}` : 'https://filmoteka.nomoredomains.xyz/pagenotfound'),
