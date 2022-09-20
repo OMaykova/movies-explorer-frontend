@@ -1,0 +1,9 @@
+export const desktop = 1024;
+export const mobile = 480;
+export const totalDesktop = 12;
+export const totalTablet = 8;
+export const totalMobile = 5;
+export const moreDesktop = 3;
+export const moreTablet = 2;
+export const moreMobile = 2;
+export const shortMovieDuration = 40;

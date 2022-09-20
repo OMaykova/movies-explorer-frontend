@@ -2,14 +2,16 @@ import React from 'react';
 import SecurityPage from '../SecurityPage/SecurityPage';
 import Form from '../Form/Form';
 
-function Login() {
+function Login({handleReqest, message}) {
   return (
     <SecurityPage
       title={'Рады видеть!'}
     >
       <Form 
         formName={'login'}
-				buttonTitle={'Войти'}
+        buttonTitle={'Войти'}
+        handleReqest={handleReqest}
+        message={message}
         />
     </SecurityPage>
   )

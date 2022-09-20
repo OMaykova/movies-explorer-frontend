@@ -29,6 +29,8 @@
   margin: 0;
 }
 .pageNotFound__link {
+  background-color: transparent;
+  border: none;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
