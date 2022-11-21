@@ -1,4 +1,4 @@
-# Diploma project 'Filmoteka' - frontend
+# Project 'Filmoteka' - frontend
 
 Filmoteka is a service where you can find movies on demand and save them in your personal account.
 The site consists of several pages:
