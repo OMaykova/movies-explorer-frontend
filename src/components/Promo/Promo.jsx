@@ -8,7 +8,7 @@ function Promo() {
     <section className='promo'>
       <div className='promo__container'>
         <div className='promo__caption'>
-          <h1 className='promo__title'>Учебный проект студента факультета Веб&zwj;-&zwj;разработки.</h1>
+          <h1 className='promo__title'>Фильмотека - сервис поиска и просмотра фильмов</h1>
           <p className='promo__description'>Листайте ниже, чтобы узнать больше про этот проект и его создателя.</p>
         </div>
         <img className='globus' src={globus} alt='Изображение глобуса' />
